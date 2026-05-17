@@ -147,7 +147,7 @@ exports.createStudent = async (req, res, next) => {
       .from('students')
       .insert({
         username,
-        password: hashedPw,
+        password_hash: hashedPw,
         first_name: body.first_name,
         last_name: body.last_name,
         phone: body.phone,
@@ -271,7 +271,7 @@ exports.approveStudent = async (req, res, next) => {
       .from('students')
       .update({
         username,
-        password: hashedPw,
+        password_hash: hashedPw,
         status: 'active',
         is_active: true,
         updated_at: new Date().toISOString()
@@ -399,7 +399,7 @@ exports.createTeacher = async (req, res, next) => {
       .from('teachers')
       .insert({
         username: body.username,
-        password: hashedPw,
+        password_hash: hashedPw,
         full_name: body.full_name,
         email: body.email,
         phone: body.phone || null,
@@ -869,7 +869,7 @@ exports.createAdminAccount = async (req, res, next) => {
       .from('admins')
       .insert({
         username: body.username,
-        password: hashedPw,
+        password_hash: hashedPw,
         full_name: body.full_name,
         email: body.email,
         role: 'admin',
@@ -890,7 +890,7 @@ exports.updateAdminAccount = async (req, res, next) => {
   try {
     const { id } = req.params;
     const body = sanitizeObject(req.body);
-    if (body.password) body.password = await hashPassword(body.password);
+    if (body.password) { body.password_hash = await hashPassword(body.password); delete body.password; }
     body.updated_at = new Date().toISOString();
 
     const { data, error } = await supabase.from('admins').update(body).eq('id', id).select().single();

@@ -4,10 +4,7 @@
 -- created tables from the old schema.sql
 -- ============================================
 
--- 1. Rename password_hash → password in all user tables
-ALTER TABLE admins RENAME COLUMN password_hash TO password;
-ALTER TABLE teachers RENAME COLUMN password_hash TO password;
-ALTER TABLE students RENAME COLUMN password_hash TO password;
+-- 1. Password column is kept as password_hash (no rename needed)
 
 -- 2. Add missing columns to students
 ALTER TABLE students ADD COLUMN IF NOT EXISTS school_year VARCHAR(10) DEFAULT '2025-2026';
@@ -85,5 +82,4 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql SECURITY DEFINER;
 
--- 11. Update seed data column name
-UPDATE admins SET password = password WHERE username = 'admin';
+-- 11. (No-op: password_hash column kept as-is)

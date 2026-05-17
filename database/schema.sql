@@ -12,7 +12,7 @@ CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 CREATE TABLE IF NOT EXISTS admins (
   id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
   username VARCHAR(30) UNIQUE NOT NULL,
-  password TEXT NOT NULL,
+  password_hash TEXT NOT NULL,
   full_name VARCHAR(100) NOT NULL,
   email VARCHAR(100) NOT NULL,
   phone VARCHAR(20),
@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS admins (
 CREATE TABLE IF NOT EXISTS teachers (
   id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
   username VARCHAR(30) UNIQUE NOT NULL,
-  password TEXT NOT NULL,
+  password_hash TEXT NOT NULL,
   full_name VARCHAR(100) NOT NULL,
   email VARCHAR(100) NOT NULL,
   phone VARCHAR(20),
@@ -80,7 +80,7 @@ CREATE TABLE IF NOT EXISTS sessions (
 CREATE TABLE IF NOT EXISTS students (
   id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
   username VARCHAR(30) UNIQUE NOT NULL,
-  password TEXT NOT NULL,
+  password_hash TEXT NOT NULL,
   first_name VARCHAR(50) NOT NULL,
   last_name VARCHAR(50) NOT NULL,
   phone VARCHAR(20) NOT NULL,
@@ -258,7 +258,7 @@ $$ LANGUAGE plpgsql SECURITY DEFINER;
 -- ──────────────────────────────────────────────
 -- Password: admin123 (bcrypt hash with 12 rounds)
 -- Replace this hash with your own after first login
-INSERT INTO admins (username, password, full_name, email, role, permissions)
+INSERT INTO admins (username, password_hash, full_name, email, role, permissions)
 VALUES (
   'admin',
   '$2a$12$LJ3/LPQ.v1lRyFP5fhI3nOPjVQdP5RX/9oY3L5JR6vSfBOqF0vQXq',
