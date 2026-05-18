@@ -47,6 +47,10 @@ router.patch('/requests/:id/resolve', ctrl.resolveRequest);
 // Emails
 router.post('/emails/send', permissionGuard('send_emails'), ctrl.sendEmails);
 
+// Sessions / Schedule
+router.get('/sessions', ctrl.getAllSessions);
+router.patch('/courses/:id/sessions-per-week', permissionGuard('manage_courses'), ctrl.updateSessionsPerWeek);
+
 // Admin Accounts
 router.get('/accounts', roleGuard('super_admin'), ctrl.getAdminAccounts);
 router.post('/accounts', roleGuard('super_admin'), ctrl.createAdminAccount);

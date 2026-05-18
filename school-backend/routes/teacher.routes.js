@@ -15,6 +15,7 @@ router.get('/notes', ctrl.getNotes);
 router.post('/requests', ctrl.createRequest);
 router.get('/requests', ctrl.getMyRequests);
 router.post('/emails/send', ctrl.sendEmailToStudents);
+router.patch('/sessions-per-week', ctrl.updateSessionsPerWeek);
 router.get('/notifications', ctrl.getNotifications);
 router.patch('/notifications/read-all', ctrl.markAllRead);
 

@@ -815,7 +815,7 @@ exports.resolveRequest = async (req, res, next) => {
 // ── Emails ─────────────────────────────────────────
 exports.sendEmails = async (req, res, next) => {
   try {
-    const { target, subject, message } = req.body;
+    const { target, subject, message, teacher_ids, student_ids } = req.body;
     if (!subject || !message) return res.status(400).json({ error: 'الموضوع والرسالة مطلوبان' });
 
     let recipients = [];
@@ -828,20 +828,74 @@ exports.sendEmails = async (req, res, next) => {
       const { data } = await supabase.from('teachers').select('full_name, email').eq('is_active', true);
       recipients.push(...(data || []).map(t => ({ email: t.email, name: t.full_name })));
     }
-    if (target && target.course_id) {
-      const { data } = await supabase.from('students').select('first_name, last_name, email').eq('course_id', target.course_id).eq('status', 'active').not('email', 'is', null);
+    if (target === 'specific_students' && student_ids && student_ids.length > 0) {
+      const { data } = await supabase.from('students').select('first_name, last_name, email').in('id', student_ids).not('email', 'is', null);
       recipients.push(...(data || []).map(s => ({ email: s.email, name: `${s.first_name} ${s.last_name}` })));
     }
-    if (target && target.student_ids) {
-      const { data } = await supabase.from('students').select('first_name, last_name, email').in('id', target.student_ids).not('email', 'is', null);
+    if (target === 'specific_teachers' && teacher_ids && teacher_ids.length > 0) {
+      const { data } = await supabase.from('teachers').select('full_name, email').in('id', teacher_ids);
+      recipients.push(...(data || []).map(t => ({ email: t.email, name: t.full_name })));
+    }
+    if (target === 'course' && req.body.course_id) {
+      const { data } = await supabase.from('students').select('first_name, last_name, email').eq('course_id', req.body.course_id).eq('status', 'active').not('email', 'is', null);
       recipients.push(...(data || []).map(s => ({ email: s.email, name: `${s.first_name} ${s.last_name}` })));
     }
+
+    if (recipients.length === 0) return res.status(400).json({ error: 'لا يوجد مستلمين' });
 
     const results = await emailService.sendBulkEmail({ recipients, subject, message });
     const sentCount = results.filter(r => r.success).length;
 
     await logAudit(req, 'send_emails', 'email', null, { target, sent_count: sentCount });
-    res.json({ sent_count: sentCount });
+    res.json({ sent_count: sentCount, total_recipients: recipients.length });
+  } catch (err) {
+    next(err);
+  }
+};
+
+// ── Sessions Schedule ─────────────────────────────
+exports.getAllSessions = async (req, res, next) => {
+  try {
+    const { teacher_id, course_id } = req.query;
+    const selectFields = '*, courses(name, level, subject, sessions_per_week), teachers(full_name)';
+    const selectFallback = '*, courses(name, level, subject), teachers(full_name)';
+
+    let query = supabase.from('sessions').select(selectFields).order('day_of_week').order('start_time');
+    if (teacher_id) query = query.eq('teacher_id', teacher_id);
+    if (course_id) query = query.eq('course_id', course_id);
+
+    let { data, error } = await query;
+
+    if (error && error.message && error.message.includes('sessions_per_week')) {
+      let q2 = supabase.from('sessions').select(selectFallback).order('day_of_week').order('start_time');
+      if (teacher_id) q2 = q2.eq('teacher_id', teacher_id);
+      if (course_id) q2 = q2.eq('course_id', course_id);
+      ({ data, error } = await q2);
+    }
+
+    if (error) throw error;
+    res.json({ sessions: data || [] });
+  } catch (err) {
+    next(err);
+  }
+};
+
+exports.updateSessionsPerWeek = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const { sessions_per_week } = req.body;
+    if (!sessions_per_week || sessions_per_week < 1 || sessions_per_week > 7) {
+      return res.status(400).json({ error: 'عدد الحصص يجب أن يكون بين 1 و 7' });
+    }
+    const { data, error } = await supabase
+      .from('courses')
+      .update({ sessions_per_week, updated_at: new Date().toISOString() })
+      .eq('id', id)
+      .select()
+      .single();
+    if (error) throw error;
+    await logAudit(req, 'update_sessions_per_week', 'course', id, { sessions_per_week });
+    res.json({ course: data });
   } catch (err) {
     next(err);
   }

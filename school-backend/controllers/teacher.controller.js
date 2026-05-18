@@ -116,12 +116,21 @@ exports.getAttendanceHistory = async (req, res, next) => {
 // ── Schedule ───────────────────────────────────────
 exports.getSchedule = async (req, res, next) => {
   try {
-    const { data, error } = await supabase
+    let { data, error } = await supabase
       .from('sessions')
-      .select('*, courses(name, level, subject)')
+      .select('*, courses(name, level, subject, sessions_per_week)')
       .eq('teacher_id', req.user.id)
       .order('day_of_week')
       .order('start_time');
+
+    if (error && error.message && error.message.includes('sessions_per_week')) {
+      ({ data, error } = await supabase
+        .from('sessions')
+        .select('*, courses(name, level, subject)')
+        .eq('teacher_id', req.user.id)
+        .order('day_of_week')
+        .order('start_time'));
+    }
 
     if (error) throw error;
     res.json({ schedule: data || [] });
@@ -250,7 +259,7 @@ exports.sendEmailToStudents = async (req, res, next) => {
       .from('students')
       .select('first_name, last_name, email')
       .eq('teacher_id', req.user.id)
-      .eq('is_active', true)
+      .eq('status', 'active')
       .not('email', 'is', null);
 
     if (student_ids && student_ids.length > 0) {
@@ -263,6 +272,32 @@ exports.sendEmailToStudents = async (req, res, next) => {
     const sentCount = results.filter(r => r.success).length;
 
     res.json({ sent_count: sentCount });
+  } catch (err) {
+    next(err);
+  }
+};
+
+// ── Update Sessions Per Week ──────────────────────
+exports.updateSessionsPerWeek = async (req, res, next) => {
+  try {
+    const { course_id, sessions_per_week } = req.body;
+    if (!sessions_per_week || sessions_per_week < 1 || sessions_per_week > 7) {
+      return res.status(400).json({ error: 'عدد الحصص يجب أن يكون بين 1 و 7' });
+    }
+
+    const { data: course } = await supabase.from('courses').select('teacher_id').eq('id', course_id).single();
+    if (!course || course.teacher_id !== req.user.id) {
+      return res.status(403).json({ error: 'لا يمكنك تعديل دورة ليست لك' });
+    }
+
+    const { data, error } = await supabase
+      .from('courses')
+      .update({ sessions_per_week, updated_at: new Date().toISOString() })
+      .eq('id', course_id)
+      .select()
+      .single();
+    if (error) throw error;
+    res.json({ course: data });
   } catch (err) {
     next(err);
   }

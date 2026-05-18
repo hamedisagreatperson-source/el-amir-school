@@ -52,6 +52,7 @@ CREATE TABLE IF NOT EXISTS courses (
   capacity INTEGER NOT NULL DEFAULT 20,
   enrolled_count INTEGER NOT NULL DEFAULT 0,
   price DECIMAL(10,2) NOT NULL DEFAULT 0,
+  sessions_per_week INTEGER NOT NULL DEFAULT 2,
   status VARCHAR(10) NOT NULL DEFAULT 'open' CHECK (status IN ('open', 'full', 'closed')),
   description TEXT,
   start_date DATE,
