@@ -279,22 +279,24 @@ exports.approveStudent = async (req, res, next) => {
     if (updateErr) throw updateErr;
 
     if (student.email) {
-      const { sendEmail } = require('../config/email');
-      await sendEmail({
-        to: student.email,
-        subject: 'تم قبول طلب تسجيلك - بيانات الدخول',
-        html: `
-          <div dir="rtl" style="font-family:Arial,sans-serif;padding:20px">
-            <h2 style="color:#2d6a9f">مرحباً ${student.first_name} ${student.last_name}</h2>
-            <p>تم قبول طلب تسجيلك في منصة المدرسة. يمكنك الآن تسجيل الدخول باستخدام البيانات التالية:</p>
-            <div style="background:#f0f4f8;padding:16px;border-radius:8px;margin:16px 0">
-              <p><strong>اسم المستخدم:</strong> ${username}</p>
-              <p><strong>كلمة المرور:</strong> ${tempPassword}</p>
+      try {
+        const { sendEmail } = require('../config/email');
+        await sendEmail({
+          to: student.email,
+          subject: 'تم قبول طلب تسجيلك - بيانات الدخول',
+          html: `
+            <div dir="rtl" style="font-family:Arial,sans-serif;padding:20px">
+              <h2 style="color:#2d6a9f">مرحباً ${student.first_name} ${student.last_name}</h2>
+              <p>تم قبول طلب تسجيلك في منصة المدرسة. يمكنك الآن تسجيل الدخول باستخدام البيانات التالية:</p>
+              <div style="background:#f0f4f8;padding:16px;border-radius:8px;margin:16px 0">
+                <p><strong>اسم المستخدم:</strong> ${username}</p>
+                <p><strong>كلمة المرور:</strong> ${tempPassword}</p>
+              </div>
+              <p style="color:#e74c3c">يُرجى تغيير كلمة المرور بعد أول تسجيل دخول.</p>
             </div>
-            <p style="color:#e74c3c">يُرجى تغيير كلمة المرور بعد أول تسجيل دخول.</p>
-          </div>
-        `
-      });
+          `
+        });
+      } catch (_) { /* email not configured — credentials shown in response instead */ }
     }
 
     await supabase.from('notifications').insert({
