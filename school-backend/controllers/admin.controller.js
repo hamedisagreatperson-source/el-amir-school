@@ -154,7 +154,6 @@ exports.createStudent = async (req, res, next) => {
         parent_phone: body.parent_phone || null,
         email: body.email || null,
         level: body.level,
-        school_year: body.school_year || '2025-2026',
         course_id: body.course_id || null,
         teacher_id: teacherId
       })
@@ -232,7 +231,7 @@ exports.updateStudentStatus = async (req, res, next) => {
 
     const { data, error } = await supabase
       .from('students')
-      .update({ status, is_active: status === 'active', updated_at: new Date().toISOString() })
+      .update({ status, updated_at: new Date().toISOString() })
       .eq('id', id)
       .select()
       .single();
@@ -273,7 +272,6 @@ exports.approveStudent = async (req, res, next) => {
         username,
         password_hash: hashedPw,
         status: 'active',
-        is_active: true,
         updated_at: new Date().toISOString()
       })
       .eq('id', id);
@@ -801,7 +799,7 @@ exports.resolveRequest = async (req, res, next) => {
     if (newStatus === 'approved' && request.type === 'expel_request' && request.target_student_id) {
       await supabase
         .from('students')
-        .update({ status: 'expelled', is_active: false, updated_at: new Date().toISOString() })
+        .update({ status: 'expelled', updated_at: new Date().toISOString() })
         .eq('id', request.target_student_id);
     }
 
@@ -821,7 +819,7 @@ exports.sendEmails = async (req, res, next) => {
     let recipients = [];
 
     if (target === 'all' || target === 'students') {
-      const { data } = await supabase.from('students').select('first_name, last_name, email').eq('is_active', true).not('email', 'is', null);
+      const { data } = await supabase.from('students').select('first_name, last_name, email').eq('status', 'active').not('email', 'is', null);
       recipients.push(...(data || []).map(s => ({ email: s.email, name: `${s.first_name} ${s.last_name}` })));
     }
     if (target === 'all' || target === 'teachers') {
@@ -829,7 +827,7 @@ exports.sendEmails = async (req, res, next) => {
       recipients.push(...(data || []).map(t => ({ email: t.email, name: t.full_name })));
     }
     if (target && target.course_id) {
-      const { data } = await supabase.from('students').select('first_name, last_name, email').eq('course_id', target.course_id).eq('is_active', true).not('email', 'is', null);
+      const { data } = await supabase.from('students').select('first_name, last_name, email').eq('course_id', target.course_id).eq('status', 'active').not('email', 'is', null);
       recipients.push(...(data || []).map(s => ({ email: s.email, name: `${s.first_name} ${s.last_name}` })));
     }
     if (target && target.student_ids) {

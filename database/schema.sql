@@ -87,11 +87,9 @@ CREATE TABLE IF NOT EXISTS students (
   parent_phone VARCHAR(20),
   email VARCHAR(100),
   level VARCHAR(5) NOT NULL CHECK (level IN ('1AM','2AM','3AM','4AM','1AS','2AS','3AS')),
-  school_year VARCHAR(10) DEFAULT '2025-2026',
   course_id UUID REFERENCES courses(id) ON DELETE SET NULL,
   teacher_id UUID REFERENCES teachers(id) ON DELETE SET NULL,
   status VARCHAR(15) NOT NULL DEFAULT 'active' CHECK (status IN ('active','suspended','expelled','pending')),
-  is_active BOOLEAN DEFAULT true,
   enrollment_date DATE DEFAULT CURRENT_DATE,
   created_at TIMESTAMPTZ DEFAULT NOW(),
   updated_at TIMESTAMPTZ DEFAULT NOW()

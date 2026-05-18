@@ -6,9 +6,7 @@
 
 -- 1. Password column is kept as password_hash (no rename needed)
 
--- 2. Add missing columns to students
-ALTER TABLE students ADD COLUMN IF NOT EXISTS school_year VARCHAR(10) DEFAULT '2025-2026';
-ALTER TABLE students ADD COLUMN IF NOT EXISTS is_active BOOLEAN DEFAULT true;
+-- 2. (school_year and is_active removed — status column is sufficient)
 
 -- 3. Add teacher_id to sessions
 ALTER TABLE sessions ADD COLUMN IF NOT EXISTS teacher_id UUID REFERENCES teachers(id) ON DELETE SET NULL;
