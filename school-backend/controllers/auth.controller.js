@@ -64,13 +64,24 @@ exports.login = async (req, res, next) => {
     );
 
     const decoded = jwt.decode(token);
-    await supabase.from('auth_tokens').insert({
-      user_id: user.id,
-      user_role: actualRole,
-      token_hash: hashToken(token),
-      jti,
-      expires_at: new Date(decoded.exp * 1000).toISOString()
-    });
+    try {
+      const { error: tokenErr } = await supabase.from('auth_tokens').insert({
+        user_id: user.id,
+        user_role: actualRole,
+        token_hash: hashToken(token),
+        jti,
+        expires_at: new Date(decoded.exp * 1000).toISOString()
+      });
+      if (tokenErr) {
+        // Retry without jti in case column doesn't exist
+        await supabase.from('auth_tokens').insert({
+          user_id: user.id,
+          user_role: actualRole,
+          token_hash: hashToken(token),
+          expires_at: new Date(decoded.exp * 1000).toISOString()
+        });
+      }
+    } catch (_) { /* token tracking failed — login still works via JWT */ }
 
     res.json({
       token,
