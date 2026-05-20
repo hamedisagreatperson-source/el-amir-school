@@ -1,9 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+Arabic:wght@300;400;500;600;700&display=swap');
 
 :root {
-  --primary: #1a3a5c;
-  --primary-light: #2d6a9f;
-  --primary-dark: #0f2440;
+  --primary: #6B46C1;
+  --primary-light: #9F7AEA;
+  --primary-dark: #44337A;
   --accent: #e8b84b;
   --accent-light: #f5d78e;
   --accent-dark: #c9961f;
@@ -13,19 +13,19 @@
   --danger-light: #ff6b6b;
   --warning: #f39c12;
   --warning-light: #f1c40f;
-  --info: #3498db;
-  --bg-dark: #0d1b2e;
-  --bg-body: #0f1f35;
-  --bg-card: #162744;
-  --bg-card-hover: #1c3156;
-  --bg-input: #1a3050;
-  --bg-sidebar: #0a1628;
-  --text-main: #ecf0f1;
-  --text-muted: #8fa3b8;
+  --info: #805AD5;
+  --bg-dark: #1a0a2e;
+  --bg-body: #1e0f33;
+  --bg-card: #2d1b4e;
+  --bg-card-hover: #3b2566;
+  --bg-input: #2d1b4e;
+  --bg-sidebar: #140828;
+  --text-main: #f0e6ff;
+  --text-muted: #b8a0d4;
   --text-dark: #2c3e50;
-  --border: #243b55;
-  --border-light: #2d4a6f;
-  --shadow: rgba(0, 0, 0, 0.3);
+  --border: #3d2a5c;
+  --border-light: #5a3d8a;
+  --shadow: rgba(0, 0, 0, 0.4);
   --radius: 12px;
   --radius-sm: 8px;
   --radius-lg: 16px;

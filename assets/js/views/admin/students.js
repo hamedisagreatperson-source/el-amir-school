@@ -22,9 +22,11 @@ const AdminStudents = (() => {
           <option value="expelled">مطرود</option>
           <option value="pending">معلّق</option>
         </select>
-        <div style="margin-right:auto;display:flex;gap:8px">
+        <div style="margin-right:auto;display:flex;gap:8px;flex-wrap:wrap">
           <button class="btn btn-outline btn-sm" onclick="AdminStudents.exportExcel()">&#128196; Excel</button>
           <button class="btn btn-outline btn-sm" onclick="AdminStudents.exportPDF()">&#128196; PDF</button>
+          <button class="btn btn-outline btn-sm" onclick="AdminStudents.exportCSV()">&#128196; CSV</button>
+          <button class="btn btn-outline btn-sm" onclick="AdminStudents.exportWord()">&#128196; Word</button>
         </div>
       </div>
       <div id="students-table-container">
@@ -199,7 +201,6 @@ const AdminStudents = (() => {
               <div><strong>المجموع:</strong> ${att.total} حصة</div>
               <div><strong>حاضر:</strong> <span style="color:var(--success)">${att.present}</span></div>
               <div><strong>غائب:</strong> <span style="color:var(--danger)">${att.absent}</span></div>
-              <div><strong>متأخر:</strong> <span style="color:var(--warning)">${att.late}</span></div>
               <div><strong>النسبة:</strong> ${att.rate}%</div>
             </div>
             <div class="progress-bar mt-12"><div class="fill green" style="width:${att.rate}%"></div></div>
@@ -344,5 +345,40 @@ const AdminStudents = (() => {
     } catch (err) { Toast.error(err.message); }
   }
 
-  return { render, showAddModal, submitAddStudent, viewStudent, editStudent, submitEditStudent, approveStudent, deleteStudent, onSearch, filterLevel, filterStatus, exportExcel, exportPDF };
+  async function exportCSV() {
+    try {
+      const data = await API.get('/admin/students?limit=1000');
+      const rows = (data.students || []).map(s => ({
+        'الاسم': `${s.first_name} ${s.last_name}`,
+        'الهاتف': s.phone,
+        'المستوى': s.level,
+        'الدورة': s.courses ? s.courses.name : '',
+        'الحالة': s.status
+      }));
+      Export.toCSV(rows, `students-${new Date().toISOString().slice(0,10)}`);
+    } catch (err) { Toast.error(err.message); }
+  }
+
+  async function exportWord() {
+    try {
+      const data = await API.get('/admin/students?limit=1000');
+      const cols = [
+        { header: 'الاسم', key: 'name' },
+        { header: 'الهاتف', key: 'phone' },
+        { header: 'المستوى', key: 'level' },
+        { header: 'الدورة', key: 'course' },
+        { header: 'الحالة', key: 'status' }
+      ];
+      const rows = (data.students || []).map(s => ({
+        name: `${s.first_name} ${s.last_name}`,
+        phone: s.phone,
+        level: s.level,
+        course: s.courses ? s.courses.name : '',
+        status: s.status
+      }));
+      Export.toWord(rows, cols, 'قائمة التلاميذ - منصة الأمير', `students-${new Date().toISOString().slice(0,10)}`);
+    } catch (err) { Toast.error(err.message); }
+  }
+
+  return { render, showAddModal, submitAddStudent, viewStudent, editStudent, submitEditStudent, approveStudent, deleteStudent, onSearch, filterLevel, filterStatus, exportExcel, exportPDF, exportCSV, exportWord };
 })();

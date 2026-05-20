@@ -42,8 +42,8 @@ const Export = (() => {
       body,
       startY: 28,
       styles: { fontSize: 8, cellPadding: 3, halign: 'right' },
-      headStyles: { fillColor: [26, 58, 92], textColor: [255, 255, 255], fontStyle: 'bold' },
-      alternateRowStyles: { fillColor: [240, 245, 250] },
+      headStyles: { fillColor: [107, 70, 193], textColor: [255, 255, 255], fontStyle: 'bold' },
+      alternateRowStyles: { fillColor: [245, 240, 255] },
       margin: { top: 28 }
     });
 
@@ -70,5 +70,43 @@ const Export = (() => {
     });
   }
 
-  return { toExcel, toPDF };
+  function toCSV(data, filename) {
+    if (!data || data.length === 0) { Toast.warning('لا توجد بيانات للتصدير'); return; }
+    const headers = Object.keys(data[0]);
+    const csvContent = '\uFEFF' + headers.join(',') + '\n' +
+      data.map(row => headers.map(h => {
+        const val = String(row[h] || '').replace(/"/g, '""');
+        return val.includes(',') || val.includes('"') || val.includes('\n') ? `"${val}"` : val;
+      }).join(',')).join('\n');
+
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = `${filename}.csv`;
+    link.click();
+    URL.revokeObjectURL(link.href);
+    Toast.success('تم تصدير CSV بنجاح');
+  }
+
+  function toWord(data, columns, title, filename) {
+    if (!data || data.length === 0) { Toast.warning('لا توجد بيانات للتصدير'); return; }
+    const tableRows = data.map(row =>
+      '<tr>' + columns.map(c => `<td style="border:1px solid #ccc;padding:6px;text-align:right">${row[c.key] || ''}</td>`).join('') + '</tr>'
+    ).join('');
+    const headerRow = '<tr>' + columns.map(c => `<th style="border:1px solid #ccc;padding:8px;background:#6B46C1;color:#fff;text-align:right">${c.header}</th>`).join('') + '</tr>';
+    const html = `<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40">
+      <head><meta charset="utf-8"><style>body{direction:rtl;font-family:Arial,sans-serif}</style></head>
+      <body><h2 style="text-align:center;color:#6B46C1">${title}</h2>
+      <p style="text-align:center;color:#888">${new Date().toLocaleString('ar-DZ')}</p>
+      <table style="width:100%;border-collapse:collapse;margin-top:16px">${headerRow}${tableRows}</table></body></html>`;
+    const blob = new Blob([html], { type: 'application/msword' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = `${filename}.doc`;
+    link.click();
+    URL.revokeObjectURL(link.href);
+    Toast.success('تم تصدير Word بنجاح');
+  }
+
+  return { toExcel, toPDF, toCSV, toWord };
 })();

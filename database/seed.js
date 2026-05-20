@@ -99,7 +99,7 @@ async function seed() {
 
   // Try with sessions_per_week first, fall back without it
   let courses, cErr;
-  const courseDataWithSPW = courseData.map((c, i) => ({ ...c, sessions_per_week: 2 + (i % 3) }));
+  const courseDataWithSPW = courseData.map((c, i) => ({ ...c, sessions_per_week: 4 }));
   ({ data: courses, error: cErr } = await supabase.from('courses').insert(courseDataWithSPW).select());
   
   if (cErr && cErr.message.includes('sessions_per_week')) {
@@ -244,7 +244,7 @@ async function seed() {
     const dateStr = date.toISOString().split('T')[0];
     
     for (const student of (allStudents || []).slice(0, 50)) { // first 50 students
-      const statuses = ['present','present','present','present','absent','late','excused'];
+      const statuses = ['present','present','present','present','absent','absent'];
       attendanceRecords.push({
         student_id: student.id,
         course_id: student.course_id,

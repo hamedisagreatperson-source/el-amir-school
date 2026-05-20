@@ -123,8 +123,6 @@ const TeacherAttendance = (() => {
               <div class="status-buttons" style="display:flex;gap:4px;flex-wrap:wrap">
                 <button class="status-btn present selected" data-id="${s.id}" data-status="present" onclick="TeacherAttendance.setStatus('${s.id}','present',this)">حاضر</button>
                 <button class="status-btn absent" data-id="${s.id}" data-status="absent" onclick="TeacherAttendance.setStatus('${s.id}','absent',this)">غائب</button>
-                <button class="status-btn late" data-id="${s.id}" data-status="late" onclick="TeacherAttendance.setStatus('${s.id}','late',this)">متأخر</button>
-                <button class="status-btn excused" data-id="${s.id}" data-status="excused" onclick="TeacherAttendance.setStatus('${s.id}','excused',this)">معذور</button>
               </div>
               <input type="text" class="form-input note-input" placeholder="ملاحظة" style="max-width:180px" oninput="TeacherAttendance.setNote('${s.id}',this.value)">
             </div>
@@ -143,8 +141,6 @@ const TeacherAttendance = (() => {
     const total = Object.keys(records).length;
     const present = Object.values(records).filter(r => r.status === 'present').length;
     const absent = Object.values(records).filter(r => r.status === 'absent').length;
-    const late = Object.values(records).filter(r => r.status === 'late').length;
-    const excused = Object.values(records).filter(r => r.status === 'excused').length;
 
     statsDiv.style.display = 'block';
     statsDiv.innerHTML = `
@@ -160,14 +156,6 @@ const TeacherAttendance = (() => {
         <div class="card" style="flex:1;min-width:100px;text-align:center;padding:12px;border-top:3px solid #ef4444">
           <div style="font-size:1.5rem;font-weight:700;color:#ef4444">${absent}</div>
           <div style="font-size:0.78rem;color:var(--text-muted)">غائب</div>
-        </div>
-        <div class="card" style="flex:1;min-width:100px;text-align:center;padding:12px;border-top:3px solid #f59e0b">
-          <div style="font-size:1.5rem;font-weight:700;color:#f59e0b">${late}</div>
-          <div style="font-size:0.78rem;color:var(--text-muted)">متأخر</div>
-        </div>
-        <div class="card" style="flex:1;min-width:100px;text-align:center;padding:12px;border-top:3px solid #3b82f6">
-          <div style="font-size:1.5rem;font-weight:700;color:#3b82f6">${excused}</div>
-          <div style="font-size:0.78rem;color:var(--text-muted)">معذور</div>
         </div>
       </div>
     `;

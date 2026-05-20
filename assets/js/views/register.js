@@ -7,7 +7,7 @@ const RegisterView = (() => {
       <div style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;background:var(--bg-dark)">
         <div style="width:100%;max-width:560px;animation:fadeIn 0.4s ease">
           <div style="text-align:center;margin-bottom:32px">
-            <div class="float-animation" style="width:80px;height:80px;margin:0 auto 16px;border-radius:20px;background:linear-gradient(135deg,var(--accent),var(--accent-dark));display:flex;align-items:center;justify-content:center;font-size:2rem;font-weight:800;color:var(--primary-dark)">م</div>
+            <div class="float-animation" style="width:80px;height:80px;margin:0 auto 16px;border-radius:20px;background:linear-gradient(135deg,var(--accent),var(--accent-dark));display:flex;align-items:center;justify-content:center;font-size:2rem;font-weight:800;color:var(--primary-dark)">أ</div>
             <h1 style="font-size:1.5rem;margin-bottom:4px">تسجيل تلميذ جديد</h1>
             <p style="color:var(--text-muted);font-size:0.9rem">سجّل بياناتك وسيقوم المدير بمراجعة طلبك</p>
           </div>

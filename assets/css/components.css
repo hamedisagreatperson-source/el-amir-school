@@ -72,7 +72,7 @@
 
 .btn-outline:hover:not(:disabled) {
   border-color: var(--primary-light);
-  background: rgba(45, 106, 159, 0.1);
+  background: rgba(107, 70, 193, 0.1);
 }
 
 .btn-ghost {
@@ -164,7 +164,7 @@
   flex-shrink: 0;
 }
 
-.stat-card .stat-icon.blue { background: rgba(45, 106, 159, 0.2); color: var(--primary-light); }
+.stat-card .stat-icon.blue { background: rgba(107, 70, 193, 0.2); color: var(--primary-light); }
 .stat-card .stat-icon.gold { background: rgba(232, 184, 75, 0.2); color: var(--accent); }
 .stat-card .stat-icon.green { background: rgba(39, 174, 96, 0.2); color: var(--success); }
 .stat-card .stat-icon.red { background: rgba(231, 76, 60, 0.2); color: var(--danger); }
@@ -215,7 +215,7 @@
 .form-select:focus,
 .form-textarea:focus {
   border-color: var(--primary-light);
-  box-shadow: 0 0 0 3px rgba(45, 106, 159, 0.2);
+  box-shadow: 0 0 0 3px rgba(107, 70, 193, 0.2);
 }
 
 .form-input::placeholder {
@@ -328,7 +328,7 @@
 .badge-success { background: rgba(39, 174, 96, 0.15); color: var(--success-light); }
 .badge-danger { background: rgba(231, 76, 60, 0.15); color: var(--danger-light); }
 .badge-warning { background: rgba(243, 156, 18, 0.15); color: var(--warning-light); }
-.badge-info { background: rgba(52, 152, 219, 0.15); color: var(--info); }
+.badge-info { background: rgba(128, 90, 213, 0.15); color: var(--info); }
 .badge-muted { background: rgba(143, 163, 184, 0.15); color: var(--text-muted); }
 
 /* ── Progress Bar ────────────────────────────────── */
@@ -542,13 +542,13 @@
 }
 
 .schedule-grid .session-cell.has-session {
-  background: rgba(45, 106, 159, 0.15);
+  background: rgba(107, 70, 193, 0.15);
   border-right: 3px solid var(--primary-light);
   cursor: pointer;
 }
 
 .schedule-grid .session-cell.has-session:hover {
-  background: rgba(45, 106, 159, 0.25);
+  background: rgba(107, 70, 193, 0.25);
 }
 
 .schedule-grid .session-cell .course-name {

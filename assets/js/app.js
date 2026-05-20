@@ -53,8 +53,8 @@ const App = (() => {
       <div class="app-container">
         <aside class="sidebar" id="sidebar">
           <div class="sidebar-header">
-            <div class="logo">م</div>
-            <span class="school-name">منصة المدرسة</span>
+            <div class="logo">أ</div>
+            <span class="school-name">منصة الأمير</span>
           </div>
           <nav class="sidebar-nav" id="sidebar-nav">
             ${navItems.map(item => `
@@ -110,6 +110,8 @@ const App = (() => {
         { route: '#/admin/requests', icon: '&#128233;', label: 'الطلبات' },
         { route: '#/admin/schedule', icon: '&#128197;', label: 'الجداول' },
         { route: '#/admin/emails', icon: '&#9993;', label: 'الإيميلات' },
+        { route: '#/admin/credentials', icon: '&#128273;', label: 'بيانات الدخول' },
+        { route: '#/admin/reassign', icon: '&#128260;', label: 'إعادة التوزيع' },
         { route: '#/admin/audit-log', icon: '&#128221;', label: 'سجل العمليات' },
         ...(role === 'super_admin' ? [{ route: '#/admin/accounts', icon: '&#128272;', label: 'حسابات المدراء' }] : [])
       ];
@@ -121,7 +123,8 @@ const App = (() => {
         { route: '#/teacher/attendance', icon: '&#9989;', label: 'الحضور' },
         { route: '#/teacher/schedule', icon: '&#128197;', label: 'جدولي' },
         { route: '#/teacher/notes', icon: '&#128221;', label: 'الملاحظات' },
-        { route: '#/teacher/requests', icon: '&#128233;', label: 'الطلبات' }
+        { route: '#/teacher/requests', icon: '&#128233;', label: 'الطلبات' },
+        { route: '#/teacher/lessons', icon: '&#128218;', label: 'الدروس' }
       ];
     }
     if (role === 'student') {
@@ -256,6 +259,8 @@ const App = (() => {
     registerRoute('/admin/emails', () => { renderLayout(Auth.getRole()); setPageTitle('إرسال الإيميلات'); AdminEmails.render(); });
     registerRoute('/admin/audit-log', () => { renderLayout(Auth.getRole()); setPageTitle('سجل العمليات'); AdminAuditLog.render(); });
     registerRoute('/admin/accounts', () => { renderLayout(Auth.getRole()); setPageTitle('حسابات المدراء'); AdminAccounts.render(); });
+    registerRoute('/admin/credentials', () => { renderLayout(Auth.getRole()); setPageTitle('بيانات الدخول'); AdminCredentials.render(); });
+    registerRoute('/admin/reassign', () => { renderLayout(Auth.getRole()); setPageTitle('إعادة التوزيع'); AdminReassign.render(); });
 
     // Teacher routes
     registerRoute('/teacher/dashboard', () => { renderLayout('teacher'); setPageTitle('لوحة التحكم'); TeacherDashboard.render(); loadNotificationCount(); });
@@ -264,6 +269,7 @@ const App = (() => {
     registerRoute('/teacher/schedule', () => { renderLayout('teacher'); setPageTitle('جدولي الأسبوعي'); TeacherSchedule.render(); });
     registerRoute('/teacher/notes', () => { renderLayout('teacher'); setPageTitle('الملاحظات'); TeacherNotes.render(); });
     registerRoute('/teacher/requests', () => { renderLayout('teacher'); setPageTitle('طلباتي'); TeacherRequests.render(); });
+    registerRoute('/teacher/lessons', () => { renderLayout('teacher'); setPageTitle('الدروس'); TeacherLessons.render(); });
 
     // Student routes
     registerRoute('/student/dashboard', () => { renderLayout('student'); setPageTitle('لوحة التحكم'); StudentDashboard.render(); loadNotificationCount(); });

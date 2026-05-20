@@ -285,14 +285,18 @@ exports.approveStudent = async (req, res, next) => {
           to: student.email,
           subject: 'تم قبول طلب تسجيلك - بيانات الدخول',
           html: `
-            <div dir="rtl" style="font-family:Arial,sans-serif;padding:20px">
-              <h2 style="color:#2d6a9f">مرحباً ${student.first_name} ${student.last_name}</h2>
-              <p>تم قبول طلب تسجيلك في منصة المدرسة. يمكنك الآن تسجيل الدخول باستخدام البيانات التالية:</p>
-              <div style="background:#f0f4f8;padding:16px;border-radius:8px;margin:16px 0">
-                <p><strong>اسم المستخدم:</strong> ${username}</p>
-                <p><strong>كلمة المرور:</strong> ${tempPassword}</p>
+            <div dir="rtl" style="font-family:Arial,sans-serif;padding:20px;max-width:500px;margin:auto">
+              <div style="text-align:center;margin-bottom:20px">
+                <div style="width:60px;height:60px;margin:0 auto 12px;border-radius:14px;background:linear-gradient(135deg,#e8b84b,#c9961f);display:flex;align-items:center;justify-content:center;font-size:1.5rem;font-weight:800;color:#44337A">أ</div>
+                <h2 style="color:#6B46C1;margin:0">منصة الأمير</h2>
               </div>
-              <p style="color:#e74c3c">يُرجى تغيير كلمة المرور بعد أول تسجيل دخول.</p>
+              <h3 style="color:#6B46C1">مرحباً ${student.first_name} ${student.last_name}</h3>
+              <p>تم قبول طلب تسجيلك في منصة الأمير. يمكنك الآن تسجيل الدخول باستخدام البيانات التالية:</p>
+              <div style="background:#f5f0ff;padding:16px;border-radius:8px;margin:16px 0;border-right:4px solid #6B46C1">
+                <p style="margin:4px 0"><strong>اسم المستخدم:</strong> ${username}</p>
+                <p style="margin:4px 0"><strong>كلمة المرور:</strong> ${tempPassword}</p>
+              </div>
+              <p style="color:#e74c3c;font-size:0.9rem">يُرجى تغيير كلمة المرور بعد أول تسجيل دخول.</p>
             </div>
           `
         });

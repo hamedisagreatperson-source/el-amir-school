@@ -75,11 +75,12 @@ const TeacherSchedule = (() => {
                     <td>${c.name}</td>
                     <td>${c.level}</td>
                     <td><input type="number" class="form-input" style="width:80px" min="1" max="7" value="${c.sessions_per_week}" id="tspw-${id}"></td>
-                    <td><button class="btn btn-sm btn-outline" onclick="TeacherSchedule.updateSPW('${id}')">حفظ</button></td>
+                    <td><button class="btn btn-sm btn-accent" onclick="TeacherSchedule.requestSPW('${id}','${Utils.escapeHtml(c.name)}')">&#128233; طلب تغيير</button></td>
                   </tr>
                 `).join('')}
               </tbody>
             </table>
+            <p style="margin-top:8px;font-size:0.78rem;color:var(--text-muted)">سيتم إرسال طلب للمدير للموافقة على التغيير</p>
           </div>
         `;
       }
@@ -90,16 +91,19 @@ const TeacherSchedule = (() => {
     }
   }
 
-  async function updateSPW(courseId) {
+  async function requestSPW(courseId, courseName) {
     const input = document.getElementById(`tspw-${courseId}`);
     if (!input) return;
     const val = parseInt(input.value);
     if (!val || val < 1 || val > 7) { Toast.warning('عدد الحصص يجب أن يكون بين 1 و 7'); return; }
     try {
-      await API.patch('/teacher/sessions-per-week', { course_id: courseId, sessions_per_week: val });
-      Toast.success('تم تحديث عدد الحصص');
+      await API.post('/teacher/requests', {
+        type: 'schedule_change',
+        reason: `طلب تغيير عدد الحصص للدورة "${courseName}" إلى ${val} حصص في الأسبوع`
+      });
+      Toast.success('تم إرسال طلب التغيير للمدير');
     } catch (err) { Toast.error(err.message); }
   }
 
-  return { render, updateSPW };
+  return { render, requestSPW };
 })();

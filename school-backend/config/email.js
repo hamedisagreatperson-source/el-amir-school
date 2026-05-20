@@ -14,7 +14,7 @@ async function sendEmail({ to, subject, html }) {
     return { skipped: true };
   }
   const info = await transporter.sendMail({
-    from: `"منصة المدرسة" <${process.env.EMAIL_USER}>`,
+    from: `"منصة الأمير" <${process.env.EMAIL_USER}>`,
     to,
     subject,
     html
