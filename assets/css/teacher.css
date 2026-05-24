@@ -12,43 +12,14 @@
   background: var(--bg-card-hover);
 }
 
-.attendance-form .student-row.alt-row {
-  background: rgba(255, 255, 255, 0.02);
-}
-
-.attendance-form .student-info-cell {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  flex: 1;
-  min-width: 0;
-}
-
-.attendance-form .student-number {
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  background: var(--bg-input);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.75rem;
-  font-weight: 700;
-  color: var(--text-muted);
-  flex-shrink: 0;
-}
-
 .attendance-form .student-name {
+  flex: 1;
   font-weight: 500;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .attendance-form .status-buttons {
   display: flex;
   gap: 6px;
-  flex-shrink: 0;
 }
 
 .attendance-form .status-btn {
@@ -61,10 +32,6 @@
   font-size: 0.8rem;
   cursor: pointer;
   transition: all var(--transition);
-}
-
-.attendance-form .status-btn:hover {
-  border-color: var(--border-light);
 }
 
 .attendance-form .status-btn.selected {
@@ -95,15 +62,6 @@
   width: 150px;
   padding: 6px 10px;
   font-size: 0.8rem;
-  flex-shrink: 0;
-}
-
-.attendance-save-btn {
-  width: 100%;
-}
-
-.attendance-form-row {
-  grid-template-columns: repeat(3, 1fr) !important;
 }
 
 .teacher-dashboard .today-sessions {
@@ -179,72 +137,4 @@
   color: var(--danger-light);
   padding: 2px 8px;
   border-radius: 10px;
-}
-
-/* ── Teacher Mobile Responsive ──────────────────── */
-@media (max-width: 768px) {
-  .attendance-form-row {
-    grid-template-columns: 1fr !important;
-  }
-
-  .attendance-form .student-row {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 10px;
-    padding: 14px 12px;
-  }
-
-  .attendance-form .student-info-cell {
-    min-width: auto;
-  }
-
-  .attendance-form .status-buttons {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 6px;
-  }
-
-  .attendance-form .status-btn {
-    text-align: center;
-    padding: 8px 6px;
-    font-size: 0.78rem;
-  }
-
-  .attendance-form .note-input {
-    width: 100%;
-  }
-
-  .teacher-dashboard .session-card {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 8px;
-  }
-
-  .teacher-dashboard .session-card .time {
-    min-width: auto;
-  }
-
-  .attendance-page-header {
-    flex-direction: column;
-    gap: 12px;
-  }
-
-  .tabs {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    white-space: nowrap;
-    gap: 0;
-  }
-
-  .tab-btn {
-    padding: 10px 14px;
-    font-size: 0.82rem;
-    flex-shrink: 0;
-  }
-}
-
-@media (max-width: 480px) {
-  .attendance-form .status-buttons {
-    grid-template-columns: repeat(2, 1fr);
-  }
 }

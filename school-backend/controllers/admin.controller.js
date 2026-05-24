@@ -596,20 +596,12 @@ exports.getPayments = async (req, res, next) => {
     if (course_id) query = query.eq('course_id', course_id);
     if (status) query = query.eq('status', status);
 
-    const { data, count, error } = await query.order('created_at', { ascending: false }).range(offset, offset + limit - 1);
+    const { data, count, error } = await query.range(offset, offset + limit - 1);
     if (error) throw error;
 
-    let payments = data || [];
-
-    if (search) {
-      const s = search.toLowerCase();
-      payments = payments.filter(p =>
-        (p.students && (`${p.students.first_name} ${p.students.last_name}`).toLowerCase().includes(s))
-      );
-    }
-
-    const totalExpected = payments.reduce((s, p) => s + (Number(p.amount) || 0), 0);
-    const collected = payments.filter(p => p.status === 'paid').reduce((s, p) => s + (Number(p.amount) || 0), 0);
+    const payments = data || [];
+    const totalExpected = payments.reduce((s, p) => s + p.amount, 0);
+    const collected = payments.filter(p => p.status === 'paid').reduce((s, p) => s + p.amount, 0);
 
     res.json({
       payments,

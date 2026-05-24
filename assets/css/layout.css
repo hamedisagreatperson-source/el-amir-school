@@ -301,28 +301,7 @@
   }
 
   .page-content {
-    padding: 12px;
-  }
-
-  .topbar {
-    padding: 0 12px;
-    gap: 8px;
-  }
-
-  .topbar .page-title {
-    font-size: 0.95rem;
-  }
-
-  .topbar .impersonation-bar {
-    font-size: 0.75rem;
-    padding: 3px 10px;
-    flex-wrap: wrap;
-  }
-
-  #notifications-dropdown {
-    width: calc(100vw - 24px) !important;
-    left: 12px !important;
-    right: 12px !important;
+    padding: 16px;
   }
 }
 
