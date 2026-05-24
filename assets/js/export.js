@@ -42,7 +42,7 @@ const Export = (() => {
       body,
       startY: 28,
       styles: { fontSize: 8, cellPadding: 3, halign: 'right' },
-      headStyles: { fillColor: [26, 58, 92], textColor: [255, 255, 255], fontStyle: 'bold' },
+      headStyles: { fillColor: [74, 29, 107], textColor: [255, 255, 255], fontStyle: 'bold' },
       alternateRowStyles: { fillColor: [240, 245, 250] },
       margin: { top: 28 }
     });
