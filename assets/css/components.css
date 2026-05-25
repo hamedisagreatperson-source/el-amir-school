@@ -72,7 +72,7 @@
 
 .btn-outline:hover:not(:disabled) {
   border-color: var(--primary-light);
-  background: rgba(45, 106, 159, 0.1);
+  background: rgba(124, 58, 237, 0.1);
 }
 
 .btn-ghost {
@@ -164,7 +164,7 @@
   flex-shrink: 0;
 }
 
-.stat-card .stat-icon.blue { background: rgba(45, 106, 159, 0.2); color: var(--primary-light); }
+.stat-card .stat-icon.blue { background: rgba(124, 58, 237, 0.2); color: var(--primary-light); }
 .stat-card .stat-icon.gold { background: rgba(232, 184, 75, 0.2); color: var(--accent); }
 .stat-card .stat-icon.green { background: rgba(39, 174, 96, 0.2); color: var(--success); }
 .stat-card .stat-icon.red { background: rgba(231, 76, 60, 0.2); color: var(--danger); }
@@ -215,7 +215,7 @@
 .form-select:focus,
 .form-textarea:focus {
   border-color: var(--primary-light);
-  box-shadow: 0 0 0 3px rgba(45, 106, 159, 0.2);
+  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.2);
 }
 
 .form-input::placeholder {
@@ -542,13 +542,13 @@
 }
 
 .schedule-grid .session-cell.has-session {
-  background: rgba(45, 106, 159, 0.15);
+  background: rgba(124, 58, 237, 0.15);
   border-right: 3px solid var(--primary-light);
   cursor: pointer;
 }
 
 .schedule-grid .session-cell.has-session:hover {
-  background: rgba(45, 106, 159, 0.25);
+  background: rgba(124, 58, 237, 0.25);
 }
 
 .schedule-grid .session-cell .course-name {

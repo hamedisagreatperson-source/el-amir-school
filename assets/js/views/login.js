@@ -4,11 +4,22 @@ const LoginView = (() => {
   function render() {
     const app = document.getElementById('app');
     app.innerHTML = `
-      <div style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;background:var(--bg-dark)">
-        <div style="width:100%;max-width:480px;animation:fadeIn 0.4s ease">
+      <div style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;background:linear-gradient(135deg,var(--bg-dark) 0%,#1a0e30 50%,var(--bg-dark) 100%);background-size:200% 200%;animation:bgGradient 8s ease infinite;position:relative;overflow:hidden">
+        <div style="position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle at 30% 50%,rgba(124,58,237,0.08) 0%,transparent 50%),radial-gradient(circle at 70% 50%,rgba(232,184,75,0.05) 0%,transparent 50%);pointer-events:none"></div>
+        <div style="width:100%;max-width:480px;animation:fadeIn 0.6s ease;position:relative;z-index:1">
           <div style="text-align:center;margin-bottom:32px">
-            <div class="float-animation" style="width:80px;height:80px;margin:0 auto 16px;border-radius:20px;background:linear-gradient(135deg,var(--accent),var(--accent-dark));display:flex;align-items:center;justify-content:center;font-size:2rem;font-weight:800;color:var(--primary-dark)">م</div>
-            <h1 style="font-size:1.5rem;margin-bottom:4px">منصة إدارة المدرسة</h1>
+            <div class="float-animation glow-pulse" style="width:90px;height:90px;margin:0 auto 16px;border-radius:50%;background:linear-gradient(135deg,var(--primary-light),var(--primary));display:flex;align-items:center;justify-content:center;border:3px solid var(--accent);position:relative;overflow:hidden">
+              <svg width="50" height="50" viewBox="0 0 50 50" fill="none">
+                <path d="M25 5L30 15H20L25 5Z" fill="var(--accent)" opacity="0.9"/>
+                <rect x="15" y="16" width="20" height="18" rx="3" stroke="var(--accent)" stroke-width="2" fill="none"/>
+                <line x1="20" y1="22" x2="30" y2="22" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round"/>
+                <line x1="20" y1="26" x2="28" y2="26" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round"/>
+                <line x1="20" y1="30" x2="25" y2="30" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round"/>
+                <path d="M10 38C10 38 15 42 25 42C35 42 40 38 40 38" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" fill="none"/>
+                <circle cx="25" cy="45" r="2" fill="var(--accent)" opacity="0.6"/>
+              </svg>
+            </div>
+            <h1 style="font-size:1.5rem;margin-bottom:4px;background:linear-gradient(135deg,var(--text-main),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">منصة إدارة المدرسة</h1>
             <p style="color:var(--text-muted);font-size:0.9rem">سجّل دخولك للمتابعة</p>
           </div>
 
@@ -82,7 +93,10 @@ const LoginView = (() => {
       await Auth.login(username, password, selectedRole);
       window.location.hash = Auth.getDefaultRoute();
     } catch (err) {
-      errorEl.textContent = err.message;
+      const msg = err.message === 'Failed to fetch'
+        ? 'تعذّر الاتصال بالخادم. تأكد أن الخادم يعمل (cd school-backend && npm start) أو تحقق من رابط API_URL في index.html'
+        : err.message;
+      errorEl.textContent = msg;
       errorEl.style.display = 'block';
     } finally {
       btn.disabled = false;

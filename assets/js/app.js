@@ -53,7 +53,7 @@ const App = (() => {
       <div class="app-container">
         <aside class="sidebar" id="sidebar">
           <div class="sidebar-header">
-            <div class="logo">م</div>
+            <div class="logo"><svg width="24" height="24" viewBox="0 0 50 50" fill="none"><path d="M25 5L30 15H20L25 5Z" fill="var(--accent)"/><rect x="15" y="16" width="20" height="18" rx="3" stroke="var(--accent)" stroke-width="2.5" fill="none"/><line x1="20" y1="22" x2="30" y2="22" stroke="var(--accent)" stroke-width="2" stroke-linecap="round"/><line x1="20" y1="27" x2="28" y2="27" stroke="var(--accent)" stroke-width="2" stroke-linecap="round"/><path d="M10 38C15 42 25 44 40 38" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" fill="none"/></svg></div>
             <span class="school-name">منصة المدرسة</span>
           </div>
           <nav class="sidebar-nav" id="sidebar-nav">
