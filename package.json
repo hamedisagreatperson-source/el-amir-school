@@ -1,0 +1,10 @@
+{
+  "name": "el-amir-school",
+  "version": "1.0.0",
+  "description": "منصة إدارة المدرسة - El Amir School Management Platform",
+  "scripts": {
+    "start": "node start.js",
+    "backend": "cd school-backend && npm start",
+    "install-deps": "cd school-backend && npm install"
+  }
+}
