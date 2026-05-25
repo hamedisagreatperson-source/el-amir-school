@@ -2,24 +2,22 @@ const TeacherAttendance = (() => {
   let students = [];
   let records = {};
   let currentTab = 'record';
-  let historyFilters = {};
 
   async function render() {
     const page = document.getElementById('page-content');
     page.innerHTML = `
       <div class="flex items-center justify-between mb-20 attendance-page-header">
-        <h2 style="font-size:1.1rem">&#9989; الحضور و الغياب</h2>
+        <h2 style="font-size:1.1rem">${Icons.attendance} الحضور و الغياب</h2>
       </div>
 
       <div class="tabs mb-20">
-        <button class="tab-btn ${currentTab === 'record' ? 'active' : ''}" onclick="TeacherAttendance.switchTab('record')">&#128221; تسجيل الحضور</button>
-        <button class="tab-btn ${currentTab === 'history' ? 'active' : ''}" onclick="TeacherAttendance.switchTab('history')">&#128197; سجل الحضور</button>
-        <button class="tab-btn ${currentTab === 'stats' ? 'active' : ''}" onclick="TeacherAttendance.switchTab('stats')">&#128202; الإحصائيات</button>
+        <button class="tab-btn ${currentTab === 'record' ? 'active' : ''}" onclick="TeacherAttendance.switchTab('record')">${Icons.notes} تسجيل الحضور</button>
+        <button class="tab-btn ${currentTab === 'history' ? 'active' : ''}" onclick="TeacherAttendance.switchTab('history')">${Icons.history} سجل الحضور</button>
+        <button class="tab-btn ${currentTab === 'stats' ? 'active' : ''}" onclick="TeacherAttendance.switchTab('stats')">${Icons.stats} الإحصائيات</button>
       </div>
 
       <div id="attendance-tab-content"></div>
     `;
-
     await renderCurrentTab();
   }
 
@@ -41,7 +39,7 @@ const TeacherAttendance = (() => {
     container.innerHTML = `
       <div class="card mb-20">
         <div class="card-header">
-          <span class="card-title">&#128221; معلومات الحصة</span>
+          <span class="card-title">${Icons.notes} معلومات الحصة</span>
         </div>
         <div class="form-row attendance-form-row">
           <div class="form-group">
@@ -60,15 +58,15 @@ const TeacherAttendance = (() => {
           </div>
         </div>
         <div style="display:flex;gap:8px;flex-wrap:wrap">
-          <button class="btn btn-outline btn-sm" onclick="TeacherAttendance.markAllPresent()">&#9989; كلهم حاضرون</button>
-          <button class="btn btn-outline btn-sm" style="border-color:var(--danger);color:var(--danger)" onclick="TeacherAttendance.markAllAbsent()">&#10060; كلهم غائبون</button>
+          <button class="btn btn-outline btn-sm" onclick="TeacherAttendance.markAllPresent()">${Icons.check} كلهم حاضرون</button>
+          <button class="btn btn-outline btn-sm" style="border-color:var(--danger);color:var(--danger)" onclick="TeacherAttendance.markAllAbsent()">${Icons.cross} كلهم غائبون</button>
         </div>
       </div>
 
       <div id="attendance-form-container"></div>
 
-      <div style="margin-top:16px" id="attendance-save-container" style="display:none">
-        <button class="btn btn-accent btn-lg attendance-save-btn" onclick="TeacherAttendance.save()">&#128190; حفظ الحضور</button>
+      <div style="margin-top:16px" id="attendance-save-container">
+        <button class="btn btn-accent btn-lg attendance-save-btn" onclick="TeacherAttendance.save()">${Icons.save} حفظ الحضور</button>
       </div>
     `;
 
@@ -88,7 +86,7 @@ const TeacherAttendance = (() => {
     container.innerHTML = `
       <div class="card mb-20">
         <div class="card-header">
-          <span class="card-title">&#128197; فلترة السجل</span>
+          <span class="card-title">${Icons.filter} فلترة السجل</span>
         </div>
         <div class="form-row attendance-form-row">
           <div class="form-group">
@@ -156,28 +154,28 @@ const TeacherAttendance = (() => {
       container.innerHTML = `
         <div class="grid grid-4 mb-20">
           <div class="stat-card">
-            <div class="stat-icon green">&#9989;</div>
+            <div class="stat-icon green">${Icons.present}</div>
             <div>
               <div class="stat-value">${present}</div>
               <div class="stat-label">حاضر</div>
             </div>
           </div>
           <div class="stat-card">
-            <div class="stat-icon red">&#10060;</div>
+            <div class="stat-icon red">${Icons.absent}</div>
             <div>
               <div class="stat-value">${absent}</div>
               <div class="stat-label">غائب</div>
             </div>
           </div>
           <div class="stat-card">
-            <div class="stat-icon orange">&#9203;</div>
+            <div class="stat-icon orange">${Icons.late}</div>
             <div>
               <div class="stat-value">${late}</div>
               <div class="stat-label">متأخر</div>
             </div>
           </div>
           <div class="stat-card">
-            <div class="stat-icon blue">&#128712;</div>
+            <div class="stat-icon blue">${Icons.excused}</div>
             <div>
               <div class="stat-value">${excused}</div>
               <div class="stat-label">معذور</div>
@@ -187,7 +185,7 @@ const TeacherAttendance = (() => {
 
         <div class="card mb-20">
           <div class="card-header">
-            <span class="card-title">&#128202; نسبة الحضور الإجمالية</span>
+            <span class="card-title">${Icons.stats} نسبة الحضور الإجمالية</span>
             <span class="mono" style="font-weight:700;font-size:1.2rem;color:${rate >= 70 ? 'var(--success)' : rate >= 50 ? 'var(--warning)' : 'var(--danger)'}">${rate}%</span>
           </div>
           <div class="progress-bar" style="height:12px;border-radius:6px">
@@ -202,7 +200,7 @@ const TeacherAttendance = (() => {
         ${Object.keys(courseStats).length > 0 ? `
           <div class="card">
             <div class="card-header">
-              <span class="card-title">&#128218; إحصائيات حسب الدورة</span>
+              <span class="card-title">${Icons.courses} إحصائيات حسب الدورة</span>
             </div>
             <div class="table-container">
               <table class="data-table">
@@ -246,7 +244,7 @@ const TeacherAttendance = (() => {
         ` : ''}
       `;
     } catch (err) {
-      container.innerHTML = `<div class="empty-state"><div class="icon">&#9888;</div><div class="title">خطأ: ${err.message}</div></div>`;
+      container.innerHTML = `<div class="empty-state"><div class="icon">${Icons.warning}</div><div class="title">خطأ: ${err.message}</div></div>`;
     }
   }
 
@@ -266,43 +264,42 @@ const TeacherAttendance = (() => {
       const attendance = data.attendance || [];
 
       if (attendance.length === 0) {
-        container.innerHTML = '<div class="empty-state"><div class="icon">&#128197;</div><div class="title">لا توجد سجلات</div><div class="description">لم يتم العثور على سجلات حضور مطابقة</div></div>';
+        container.innerHTML = `<div class="empty-state"><div class="icon">${Icons.schedule}</div><div class="title">لا توجد سجلات</div><div class="description">لم يتم العثور على سجلات حضور مطابقة</div></div>`;
         return;
       }
 
-      const grouped = {};
+      // Group by student for grid view
+      const byStudent = {};
       attendance.forEach(a => {
-        const key = `${a.session_date}`;
-        if (!grouped[key]) grouped[key] = [];
-        grouped[key].push(a);
+        const sid = a.student_id;
+        if (!byStudent[sid]) {
+          byStudent[sid] = {
+            name: a.students ? `${a.students.first_name} ${a.students.last_name}` : '—',
+            records: []
+          };
+        }
+        byStudent[sid].records.push(a);
       });
 
-      container.innerHTML = `
-        <div class="table-container">
-          <table class="data-table">
-            <thead>
-              <tr>
-                <th>التاريخ</th>
-                <th>التلميذ</th>
-                <th>الحالة</th>
-                <th>الوقت</th>
-                <th>ملاحظة</th>
-              </tr>
-            </thead>
-            <tbody>
-              ${attendance.map(a => `
-                <tr>
-                  <td class="mono" style="font-size:0.82rem">${Utils.formatDate(a.session_date)}</td>
-                  <td style="font-weight:500">${a.students ? `${a.students.first_name} ${a.students.last_name}` : '—'}</td>
-                  <td>${Utils.getStatusBadge(a.status)}</td>
-                  <td class="mono" style="font-size:0.82rem">${a.session_time ? Utils.formatTime(a.session_time) : '—'}</td>
-                  <td style="font-size:0.85rem;color:var(--text-muted)">${a.note || '—'}</td>
-                </tr>
-              `).join('')}
-            </tbody>
-          </table>
-        </div>
-      `;
+      let html = '<div class="att-grid">';
+      Object.keys(byStudent).forEach(sid => {
+        const st = byStudent[sid];
+        html += `<div class="att-student-card card">
+          <div class="asc-header">
+            <div class="asc-name">${st.name}</div>
+          </div>
+          <div class="asc-squares">`;
+        st.records.forEach(r => {
+          const statusIcon = r.status === 'present' ? Icons.check : r.status === 'absent' ? Icons.cross : r.status === 'late' ? Icons.clock : Icons.info;
+          html += `<div class="att-square ${r.status}" title="${Utils.formatDate(r.session_date)} - ${Utils.getAttendanceStatus(r.status)}">
+            <div class="att-square-icon">${statusIcon}</div>
+            <div class="att-square-date">${Utils.formatDate(r.session_date)}</div>
+          </div>`;
+        });
+        html += `</div></div>`;
+      });
+      html += '</div>';
+      container.innerHTML = html;
     } catch (err) {
       container.innerHTML = `<div class="empty-state"><div class="title">خطأ: ${err.message}</div></div>`;
     }
@@ -320,14 +317,14 @@ const TeacherAttendance = (() => {
       students.forEach(s => { records[s.id] = { student_id: s.id, status: 'present', note: '' }; });
 
       if (students.length === 0) {
-        container.innerHTML = '<div class="empty-state"><div class="icon">&#128100;</div><div class="title">لا يوجد تلاميذ</div><div class="description">هذه الدورة ليس بها تلاميذ مسجلين</div></div>';
+        container.innerHTML = `<div class="empty-state"><div class="icon">${Icons.student}</div><div class="title">لا يوجد تلاميذ</div><div class="description">هذه الدورة ليس بها تلاميذ مسجلين</div></div>`;
         return;
       }
 
       container.innerHTML = `
         <div class="card mb-16">
           <div class="card-header">
-            <span class="card-title">&#128100; قائمة التلاميذ (${students.length})</span>
+            <span class="card-title">${Icons.students} قائمة التلاميذ (${students.length})</span>
           </div>
           <div class="attendance-form">
             ${students.map((s, i) => `
@@ -337,10 +334,10 @@ const TeacherAttendance = (() => {
                   <span class="student-name">${s.first_name} ${s.last_name}</span>
                 </div>
                 <div class="status-buttons">
-                  <button class="status-btn present selected" data-id="${s.id}" data-status="present" onclick="TeacherAttendance.setStatus('${s.id}','present',this)">&#9989; حاضر</button>
-                  <button class="status-btn absent" data-id="${s.id}" data-status="absent" onclick="TeacherAttendance.setStatus('${s.id}','absent',this)">&#10060; غائب</button>
-                  <button class="status-btn late" data-id="${s.id}" data-status="late" onclick="TeacherAttendance.setStatus('${s.id}','late',this)">&#9203; متأخر</button>
-                  <button class="status-btn excused" data-id="${s.id}" data-status="excused" onclick="TeacherAttendance.setStatus('${s.id}','excused',this)">&#128712; معذور</button>
+                  <button class="status-btn present selected" data-id="${s.id}" data-status="present" onclick="TeacherAttendance.setStatus('${s.id}','present',this)">${Icons.check} حاضر</button>
+                  <button class="status-btn absent" data-id="${s.id}" data-status="absent" onclick="TeacherAttendance.setStatus('${s.id}','absent',this)">${Icons.cross} غائب</button>
+                  <button class="status-btn late" data-id="${s.id}" data-status="late" onclick="TeacherAttendance.setStatus('${s.id}','late',this)">${Icons.clock} متأخر</button>
+                  <button class="status-btn excused" data-id="${s.id}" data-status="excused" onclick="TeacherAttendance.setStatus('${s.id}','excused',this)">${Icons.info} معذور</button>
                 </div>
                 <input type="text" class="form-input note-input" placeholder="ملاحظة..." oninput="TeacherAttendance.setNote('${s.id}',this.value)">
               </div>
@@ -368,14 +365,14 @@ const TeacherAttendance = (() => {
     Object.keys(records).forEach(id => { records[id].status = 'present'; });
     document.querySelectorAll('.status-btn').forEach(b => b.classList.remove('selected'));
     document.querySelectorAll('.status-btn.present').forEach(b => b.classList.add('selected'));
-    Toast.info('&#9989; تم تحديد الجميع كحاضرين');
+    Toast.info('تم تحديد الجميع كحاضرين');
   }
 
   function markAllAbsent() {
     Object.keys(records).forEach(id => { records[id].status = 'absent'; });
     document.querySelectorAll('.status-btn').forEach(b => b.classList.remove('selected'));
     document.querySelectorAll('.status-btn.absent').forEach(b => b.classList.add('selected'));
-    Toast.info('&#10060; تم تحديد الجميع كغائبين');
+    Toast.info('تم تحديد الجميع كغائبين');
   }
 
   async function save() {
@@ -394,7 +391,7 @@ const TeacherAttendance = (() => {
         session_time: time || null,
         records: Object.values(records)
       });
-      Toast.success('&#9989; تم حفظ الحضور بنجاح');
+      Toast.success('تم حفظ الحضور بنجاح');
     } catch (err) { Toast.error(err.message); }
   }
 

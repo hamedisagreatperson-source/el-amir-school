@@ -2,7 +2,7 @@ const AdminSchedule = (() => {
   async function render() {
     const page = document.getElementById('page-content');
     page.innerHTML = `
-      <h2 style="font-size:1.1rem" class="mb-20">الجداول الزمنية</h2>
+      <h2 style="font-size:1.1rem" class="mb-20">${Icons.schedule} الجداول الزمنية</h2>
       <div class="filters-bar mb-20">
         <select class="form-select" id="schedule-teacher-filter" onchange="AdminSchedule.load()">
           <option value="">كل الأساتذة</option>
@@ -40,7 +40,7 @@ const AdminSchedule = (() => {
       }
 
       if (allSessions.length === 0) {
-        container.innerHTML = '<div class="empty-state"><div class="icon">&#128197;</div><div class="title">لا توجد حصص</div></div>';
+        container.innerHTML = `<div class="empty-state"><div class="icon">${Icons.schedule}</div><div class="title">لا توجد حصص</div></div>`;
         return;
       }
 

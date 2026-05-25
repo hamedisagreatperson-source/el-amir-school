@@ -6,7 +6,7 @@ const StudentNotes = (() => {
       const notes = data.notes || [];
 
       if (notes.length === 0) {
-        page.innerHTML = '<div class="empty-state"><div class="icon">&#128221;</div><div class="title">لا توجد ملاحظات من الأستاذ</div></div>';
+        page.innerHTML = `<div class="empty-state"><div class="icon">${Icons.notes}</div><div class="title">لا توجد ملاحظات من الأستاذ</div></div>`;
         return;
       }
 

@@ -224,6 +224,32 @@
     gap: 8px;
   }
 
+  /* Payment grid */
+  .payment-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .psc-squares {
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)) !important;
+  }
+
+  .pay-square {
+    padding: 8px !important;
+  }
+
+  /* Attendance grid */
+  .att-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .asc-squares {
+    grid-template-columns: repeat(auto-fill, minmax(70px, 1fr)) !important;
+  }
+
+  .att-square {
+    padding: 6px !important;
+  }
+
   /* Upload zone */
   .upload-zone {
     padding: 20px;
@@ -290,6 +316,30 @@
   /* Quick links grid in dashboard */
   .grid-2 {
     grid-template-columns: 1fr;
+  }
+
+  /* Account cards */
+  .account-card .user-avatar-lg {
+    width: 40px !important;
+    height: 40px !important;
+    font-size: 0.9rem !important;
+  }
+
+  /* SVG icons in stat cards */
+  .stat-icon svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  /* Form row stack */
+  .form-row {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  /* Email student list */
+  #email-student-list {
+    max-height: 150px !important;
   }
 
   /* Note cards */

@@ -33,7 +33,7 @@ const App = (() => {
       if (pageContent) {
         pageContent.innerHTML = `
           <div class="empty-state">
-            <div class="icon">&#128269;</div>
+            <div class="icon">${Icons.notFound}</div>
             <div class="title">الصفحة غير موجودة</div>
             <div class="description">الصفحة المطلوبة غير متوفرة</div>
             <button class="btn btn-primary mt-20" onclick="window.location.hash='${Auth.getDefaultRoute()}'">العودة للرئيسية</button>
@@ -70,22 +70,22 @@ const App = (() => {
               <div class="user-name">${user ? user.full_name : ''}</div>
               <div class="user-role">${getRoleLabel(role)}</div>
             </div>
-            <button class="logout-btn" onclick="Auth.logout()" title="خروج">&#9211;</button>
+            <button class="logout-btn" onclick="Auth.logout()" title="خروج">${Icons.logout}</button>
           </div>
         </aside>
         <div class="sidebar-overlay" id="sidebar-overlay" onclick="App.toggleSidebar()"></div>
         <main class="main-content">
           <header class="topbar">
-            <button class="toggle-sidebar" onclick="App.toggleSidebar()">&#9776;</button>
+            <button class="toggle-sidebar" onclick="App.toggleSidebar()">${Icons.menu}</button>
             <h1 class="page-title" id="page-title"></h1>
             ${Auth.isImpersonating() ? `
               <div class="impersonation-bar">
-                &#9888; أنت تتصفح كأستاذ
+                ${Icons.warning} أنت تتصفح كأستاذ
                 <button onclick="Auth.endImpersonation();window.location.hash='#/admin/dashboard';window.location.reload()">رجوع لحسابي</button>
               </div>
             ` : ''}
             <button class="notifications-btn" onclick="App.toggleNotifications()" id="notifications-btn">
-              &#128276;
+              ${Icons.bell}
               <span class="badge" id="notifications-badge" style="display:none">0</span>
             </button>
           </header>
@@ -101,36 +101,36 @@ const App = (() => {
   function getNavItems(role) {
     if (role === 'admin' || role === 'super_admin') {
       return [
-        { route: '#/admin/dashboard', icon: '&#128202;', label: 'لوحة التحكم' },
-        { route: '#/admin/students', icon: '&#128100;', label: 'التلاميذ' },
-        { route: '#/admin/teachers', icon: '&#128105;&#8205;&#127979;', label: 'الأساتذة' },
-        { route: '#/admin/courses', icon: '&#128218;', label: 'الدورات' },
-        { route: '#/admin/payments', icon: '&#128176;', label: 'الدفع' },
-        { route: '#/admin/attendance', icon: '&#9989;', label: 'الحضور' },
-        { route: '#/admin/requests', icon: '&#128233;', label: 'الطلبات' },
-        { route: '#/admin/schedule', icon: '&#128197;', label: 'الجداول' },
-        { route: '#/admin/emails', icon: '&#9993;', label: 'الإيميلات' },
-        { route: '#/admin/audit-log', icon: '&#128221;', label: 'سجل العمليات' },
-        ...(role === 'super_admin' ? [{ route: '#/admin/accounts', icon: '&#128272;', label: 'حسابات المدراء' }] : [])
+        { route: '#/admin/dashboard', icon: Icons.dashboard, label: 'لوحة التحكم' },
+        { route: '#/admin/students', icon: Icons.students, label: 'التلاميذ' },
+        { route: '#/admin/teachers', icon: Icons.teachers, label: 'الأساتذة' },
+        { route: '#/admin/courses', icon: Icons.courses, label: 'الدورات' },
+        { route: '#/admin/payments', icon: Icons.payments, label: 'الدفع' },
+        { route: '#/admin/attendance', icon: Icons.attendance, label: 'الحضور' },
+        { route: '#/admin/requests', icon: Icons.requests, label: 'الطلبات' },
+        { route: '#/admin/schedule', icon: Icons.schedule, label: 'الجداول' },
+        { route: '#/admin/emails', icon: Icons.emails, label: 'الإيميلات' },
+        { route: '#/admin/audit-log', icon: Icons.auditLog, label: 'سجل العمليات' },
+        ...(role === 'super_admin' ? [{ route: '#/admin/accounts', icon: Icons.accounts, label: 'حسابات المدراء' }] : [])
       ];
     }
     if (role === 'teacher') {
       return [
-        { route: '#/teacher/dashboard', icon: '&#128202;', label: 'لوحة التحكم' },
-        { route: '#/teacher/my-students', icon: '&#128100;', label: 'تلاميذي' },
-        { route: '#/teacher/attendance', icon: '&#9989;', label: 'الحضور' },
-        { route: '#/teacher/schedule', icon: '&#128197;', label: 'جدولي' },
-        { route: '#/teacher/notes', icon: '&#128221;', label: 'الملاحظات' },
-        { route: '#/teacher/requests', icon: '&#128233;', label: 'الطلبات' }
+        { route: '#/teacher/dashboard', icon: Icons.dashboard, label: 'لوحة التحكم' },
+        { route: '#/teacher/my-students', icon: Icons.students, label: 'تلاميذي' },
+        { route: '#/teacher/attendance', icon: Icons.attendance, label: 'الحضور' },
+        { route: '#/teacher/schedule', icon: Icons.schedule, label: 'جدولي' },
+        { route: '#/teacher/notes', icon: Icons.notes, label: 'الملاحظات' },
+        { route: '#/teacher/requests', icon: Icons.requests, label: 'الطلبات' }
       ];
     }
     if (role === 'student') {
       return [
-        { route: '#/student/dashboard', icon: '&#128202;', label: 'لوحة التحكم' },
-        { route: '#/student/schedule', icon: '&#128197;', label: 'جدولي' },
-        { route: '#/student/attendance', icon: '&#9989;', label: 'حضوري' },
-        { route: '#/student/payments', icon: '&#128176;', label: 'دفعي' },
-        { route: '#/student/notes', icon: '&#128221;', label: 'الملاحظات' }
+        { route: '#/student/dashboard', icon: Icons.dashboard, label: 'لوحة التحكم' },
+        { route: '#/student/schedule', icon: Icons.schedule, label: 'جدولي' },
+        { route: '#/student/attendance', icon: Icons.attendance, label: 'حضوري' },
+        { route: '#/student/payments', icon: Icons.payments, label: 'دفعي' },
+        { route: '#/student/notes', icon: Icons.notes, label: 'الملاحظات' }
       ];
     }
     return [];

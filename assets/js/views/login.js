@@ -25,15 +25,15 @@ const LoginView = (() => {
 
           <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:24px" id="role-selector">
             <div class="role-card card" style="text-align:center;padding:16px;cursor:pointer" data-role="admin" onclick="LoginView.selectRole('admin')">
-              <div style="font-size:1.5rem;margin-bottom:8px">&#128081;</div>
+              <div style="font-size:1.5rem;margin-bottom:8px">${Icons.crown}</div>
               <div style="font-weight:600;font-size:0.85rem">مدير</div>
             </div>
             <div class="role-card card" style="text-align:center;padding:16px;cursor:pointer" data-role="teacher" onclick="LoginView.selectRole('teacher')">
-              <div style="font-size:1.5rem;margin-bottom:8px">&#128105;&#8205;&#127979;</div>
+              <div style="font-size:1.5rem;margin-bottom:8px">${Icons.teachers}</div>
               <div style="font-weight:600;font-size:0.85rem">أستاذ</div>
             </div>
             <div class="role-card card" style="text-align:center;padding:16px;cursor:pointer" data-role="student" onclick="LoginView.selectRole('student')">
-              <div style="font-size:1.5rem;margin-bottom:8px">&#128214;</div>
+              <div style="font-size:1.5rem;margin-bottom:8px">${Icons.graduationCap}</div>
               <div style="font-weight:600;font-size:0.85rem">تلميذ</div>
             </div>
           </div>
@@ -48,7 +48,7 @@ const LoginView = (() => {
                 <label class="form-label">كلمة المرور</label>
                 <div style="position:relative">
                   <input type="password" class="form-input" id="login-password" placeholder="أدخل كلمة المرور" autocomplete="current-password" required minlength="6" style="padding-left:40px">
-                  <button type="button" style="position:absolute;left:10px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:1rem" onclick="LoginView.togglePassword()">&#128065;</button>
+                  <button type="button" style="position:absolute;left:10px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:1rem" onclick="LoginView.togglePassword()">${Icons.eyeToggle}</button>
                 </div>
               </div>
               <div id="login-error" style="display:none;color:var(--danger);font-size:0.85rem;margin-bottom:12px;padding:10px;background:rgba(231,76,60,0.1);border-radius:8px"></div>

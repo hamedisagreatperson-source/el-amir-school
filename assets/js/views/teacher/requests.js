@@ -3,8 +3,8 @@ const TeacherRequests = (() => {
     const page = document.getElementById('page-content');
     page.innerHTML = `
       <div class="flex items-center justify-between mb-20">
-        <h2 style="font-size:1.1rem">طلباتي</h2>
-        <button class="btn btn-accent" onclick="TeacherRequests.showAdd()">&#43; طلب جديد</button>
+        <h2 style="font-size:1.1rem">${Icons.requests} طلباتي</h2>
+        <button class="btn btn-accent" onclick="TeacherRequests.showAdd()">${Icons.add} طلب جديد</button>
       </div>
       <div id="requests-container"><div style="padding:40px;text-align:center;color:var(--text-muted)">جاري التحميل...</div></div>
     `;
@@ -17,7 +17,7 @@ const TeacherRequests = (() => {
       const data = await API.get('/teacher/requests');
       const requests = data.requests || [];
       if (requests.length === 0) {
-        container.innerHTML = '<div class="empty-state"><div class="icon">&#128233;</div><div class="title">لا توجد طلبات</div></div>';
+        container.innerHTML = `<div class="empty-state"><div class="icon">${Icons.requests}</div><div class="title">لا توجد طلبات</div></div>`;
         return;
       }
       container.innerHTML = requests.map(r => `
@@ -47,6 +47,7 @@ const TeacherRequests = (() => {
         <div class="form-group">
           <label class="form-label">نوع الطلب *</label>
           <select class="form-select" name="type" required>
+            <option value="session_request">طلب حصة جديدة</option>
             <option value="expel_request">طلب طرد</option>
             <option value="add_student">طلب إضافة تلميذ</option>
             <option value="schedule_change">تغيير في الجدول</option>
@@ -80,7 +81,7 @@ const TeacherRequests = (() => {
   }
 
   function translateType(type) {
-    const map = { expel_request: 'طلب طرد', add_student: 'طلب إضافة', schedule_change: 'تغيير جدول', note_approval: 'ملاحظة', other: 'أخرى' };
+    const map = { session_request: 'طلب حصة', expel_request: 'طلب طرد', add_student: 'طلب إضافة', schedule_change: 'تغيير جدول', note_approval: 'ملاحظة', other: 'أخرى' };
     return map[type] || type;
   }
 

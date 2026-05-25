@@ -3,8 +3,8 @@ const TeacherNotes = (() => {
     const page = document.getElementById('page-content');
     page.innerHTML = `
       <div class="flex items-center justify-between mb-20">
-        <h2 style="font-size:1.1rem">ملاحظاتي</h2>
-        <button class="btn btn-accent" onclick="TeacherNotes.showAdd()">&#43; إضافة ملاحظة</button>
+        <h2 style="font-size:1.1rem">${Icons.notes} ملاحظاتي</h2>
+        <button class="btn btn-accent" onclick="TeacherNotes.showAdd()">${Icons.add} إضافة ملاحظة</button>
       </div>
       <div id="notes-container"><div style="padding:40px;text-align:center;color:var(--text-muted)">جاري التحميل...</div></div>
     `;
@@ -17,7 +17,7 @@ const TeacherNotes = (() => {
       const data = await API.get('/teacher/notes');
       const notes = data.notes || [];
       if (notes.length === 0) {
-        container.innerHTML = '<div class="empty-state"><div class="icon">&#128221;</div><div class="title">لا توجد ملاحظات</div></div>';
+        container.innerHTML = `<div class="empty-state"><div class="icon">${Icons.notes}</div><div class="title">لا توجد ملاحظات</div></div>`;
         return;
       }
       container.innerHTML = notes.map(n => `

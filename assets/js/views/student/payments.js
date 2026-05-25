@@ -6,7 +6,7 @@ const StudentPayments = (() => {
       const payments = data.payments || [];
 
       if (payments.length === 0) {
-        page.innerHTML = '<div class="empty-state"><div class="icon">&#128176;</div><div class="title">لا توجد دفعات</div></div>';
+        page.innerHTML = `<div class="empty-state"><div class="icon">${Icons.payments}</div><div class="title">لا توجد دفعات</div></div>`;
         return;
       }
 
@@ -22,11 +22,11 @@ const StudentPayments = (() => {
             <div>
               ${p.status === 'unpaid' ? `
                 <div class="upload-zone" onclick="document.getElementById('proof-${p.id}').click()" style="padding:12px;cursor:pointer">
-                  <div style="font-size:0.85rem;color:var(--text-muted)">&#128228; رفع إثبات</div>
+                  <div style="font-size:0.85rem;color:var(--text-muted)">${Icons.upload} رفع إثبات</div>
                   <input type="file" id="proof-${p.id}" accept="image/*,.pdf" style="display:none" onchange="StudentPayments.uploadProof('${p.id}', this)">
                 </div>
               ` : p.status === 'pending_verification' ? '<span style="font-size:0.82rem;color:var(--warning)">في انتظار التأكيد</span>' : ''}
-              ${p.proof_url ? `<a href="${p.proof_url}" target="_blank" class="btn btn-ghost btn-sm">&#128065; عرض الإثبات</a>` : ''}
+              ${p.proof_url ? `<a href="${p.proof_url}" target="_blank" class="btn btn-ghost btn-sm">${Icons.view} عرض الإثبات</a>` : ''}
             </div>
           </div>
         `).join('')}

@@ -15,28 +15,28 @@ const StudentDashboard = (() => {
 
           <div class="quick-stats stagger">
             <div class="stat-card">
-              <div class="stat-icon blue">&#128218;</div>
+              <div class="stat-icon blue">${Icons.courses}</div>
               <div>
                 <div class="stat-value">${s && s.courses ? s.courses.name : '—'}</div>
                 <div class="stat-label">الدورة</div>
               </div>
             </div>
             <div class="stat-card">
-              <div class="stat-icon gold">&#128105;&#8205;&#127979;</div>
+              <div class="stat-icon gold">${Icons.teachers}</div>
               <div>
                 <div class="stat-value">${s && s.teachers ? s.teachers.full_name : '—'}</div>
                 <div class="stat-label">الأستاذ</div>
               </div>
             </div>
             <div class="stat-card">
-              <div class="stat-icon green">&#9989;</div>
+              <div class="stat-icon green">${Icons.attendance}</div>
               <div>
                 <div class="stat-value">${data.attendance_rate}%</div>
                 <div class="stat-label">نسبة الحضور</div>
               </div>
             </div>
             <div class="stat-card">
-              <div class="stat-icon ${data.payment_status === 'paid' ? 'green' : 'red'}">&#128176;</div>
+              <div class="stat-icon ${data.payment_status === 'paid' ? 'green' : 'red'}">${Icons.payments}</div>
               <div>
                 <div class="stat-value">${Utils.getStatusBadge(data.payment_status)}</div>
                 <div class="stat-label">دفع هذا الشهر</div>

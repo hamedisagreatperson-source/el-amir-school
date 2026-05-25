@@ -27,7 +27,7 @@ const Modal = (() => {
     modal.innerHTML = `
       <div style="display:flex;align-items:center;justify-content:space-between;padding:20px 24px;border-bottom:1px solid var(--border)">
         <h3 style="font-size:1.1rem;font-weight:700">${title}</h3>
-        <button class="modal-close-btn" style="background:none;border:none;color:var(--text-muted);font-size:1.3rem;cursor:pointer;padding:4px 8px;border-radius:6px;transition:all 0.2s">&#10005;</button>
+        <button class="modal-close-btn" style="background:none;border:none;color:var(--text-muted);font-size:1.3rem;cursor:pointer;padding:4px 8px;border-radius:6px;transition:all 0.2s">${Icons.cross}</button>
       </div>
       <div class="modal-body" style="padding:24px">${content}</div>
     `;

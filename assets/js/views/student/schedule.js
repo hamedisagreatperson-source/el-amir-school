@@ -6,7 +6,7 @@ const StudentScheduleView = (() => {
       const sessions = data.schedule || [];
 
       if (sessions.length === 0) {
-        page.innerHTML = '<div class="empty-state"><div class="icon">&#128197;</div><div class="title">لا توجد حصص في جدولك</div></div>';
+        page.innerHTML = `<div class="empty-state"><div class="icon">${Icons.schedule}</div><div class="title">لا توجد حصص في جدولك</div></div>`;
         return;
       }
 

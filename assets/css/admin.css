@@ -189,3 +189,205 @@
   padding-top: 12px;
   border-top: 1px solid var(--border);
 }
+
+/* Payment grid squares */
+.payment-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 16px;
+}
+
+.payment-student-card {
+  padding: 16px !important;
+}
+
+.psc-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+}
+
+.psc-name {
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+.psc-phone {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+.psc-squares {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 8px;
+}
+
+.pay-square {
+  border: 2px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 10px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  position: relative;
+  background: var(--bg-input);
+}
+
+.pay-square:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.pay-square.paid {
+  border-color: var(--success);
+  background: rgba(39, 174, 96, 0.12);
+}
+
+.pay-square.unpaid {
+  border-color: var(--danger);
+  background: rgba(231, 76, 60, 0.08);
+}
+
+.pay-square.pending {
+  border-color: var(--warning);
+  background: rgba(243, 156, 18, 0.08);
+}
+
+.pay-square-check {
+  margin-bottom: 4px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pay-square.paid .pay-square-check {
+  color: var(--success);
+}
+
+.pay-square.pending .pay-square-check {
+  color: var(--warning);
+}
+
+.pay-square-course {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-main);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pay-square-teacher {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pay-square-amount {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--accent);
+  margin-top: 4px;
+}
+
+/* Attendance grid squares */
+.att-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 16px;
+}
+
+.att-student-card {
+  padding: 16px !important;
+}
+
+.asc-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+}
+
+.asc-name {
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+.asc-squares {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 6px;
+}
+
+.att-square {
+  border: 2px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 8px 6px;
+  text-align: center;
+  font-size: 0.75rem;
+  transition: all 0.2s ease;
+}
+
+.att-square.present {
+  border-color: var(--success);
+  background: rgba(39, 174, 96, 0.12);
+  color: var(--success);
+}
+
+.att-square.absent {
+  border-color: var(--danger);
+  background: rgba(231, 76, 60, 0.12);
+  color: var(--danger);
+}
+
+.att-square.late {
+  border-color: var(--warning);
+  background: rgba(243, 156, 18, 0.12);
+  color: var(--warning);
+}
+
+.att-square.excused {
+  border-color: var(--info);
+  background: rgba(52, 152, 219, 0.12);
+  color: var(--info);
+}
+
+.att-square-icon {
+  margin-bottom: 2px;
+}
+
+.att-square-date {
+  font-size: 0.68rem;
+  color: var(--text-muted);
+}
+
+/* Icon sizing in nav and buttons */
+.nav-item .icon svg,
+.sidebar-header .logo svg {
+  vertical-align: middle;
+}
+
+.btn svg {
+  vertical-align: middle;
+  margin-left: 4px;
+}
+
+.stat-icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.empty-state .icon svg {
+  width: 48px;
+  height: 48px;
+}

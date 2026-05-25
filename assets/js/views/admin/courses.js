@@ -3,10 +3,11 @@ const AdminCourses = (() => {
     const page = document.getElementById('page-content');
     page.innerHTML = `
       <div class="flex items-center justify-between mb-20">
-        <h2 style="font-size:1.1rem">إدارة الدورات</h2>
-        <button class="btn btn-accent" onclick="AdminCourses.showAddModal()">&#43; إنشاء دورة</button>
+        <h2 style="font-size:1.1rem">${Icons.courses} إدارة الدورات</h2>
+        <button class="btn btn-accent" onclick="AdminCourses.showAddModal()">${Icons.add} إنشاء دورة</button>
       </div>
-      <div class="filters-bar">
+      <div class="filters-bar mb-20">
+        <input type="text" class="form-input search-input" placeholder="بحث بالاسم..." oninput="AdminCourses.searchCourses(this.value)">
         <select class="form-select" onchange="AdminCourses.filterLevel(this.value)">
           <option value="">كل المستويات</option>
           ${Utils.getLevelOptions().map(l => `<option value="${l}">${l}</option>`).join('')}
@@ -33,7 +34,7 @@ const AdminCourses = (() => {
       const data = await API.get(`/admin/courses?${params}`);
       const courses = data.courses || [];
       if (courses.length === 0) {
-        container.innerHTML = '<div class="empty-state"><div class="icon">&#128218;</div><div class="title">لا توجد دورات</div></div>';
+        container.innerHTML = `<div class="empty-state"><div class="icon">${Icons.courses}</div><div class="title">لا توجد دورات</div></div>`;
         return;
       }
       container.innerHTML = `<div class="grid grid-3">${courses.map(courseCard).join('')}</div>`;
@@ -55,18 +56,18 @@ const AdminCourses = (() => {
           ${Utils.getStatusBadge(c.status)}
         </div>
         <div class="course-meta">
-          <span>&#127891; ${c.level}</span>
-          <span>&#128105;&#8205;&#127979; ${c.teachers ? c.teachers.full_name : '—'}</span>
-          <span>&#128176; ${Utils.formatCurrency(c.price)}</span>
+          <span>${Icons.graduationCap} ${c.level}</span>
+          <span>${Icons.teachers} ${c.teachers ? c.teachers.full_name : '—'}</span>
+          <span>${Icons.money} ${Utils.formatCurrency(c.price)}</span>
         </div>
         <div class="capacity-bar">
           <div class="capacity-text"><span>${c.enrolled_count}/${c.capacity} تلميذ</span><span>${pct}%</span></div>
           <div class="progress-bar"><div class="fill ${fillColor}" style="width:${pct}%"></div></div>
         </div>
         <div class="actions">
-          <button class="btn btn-ghost btn-sm" onclick="AdminCourses.viewCourse('${c.id}')">&#128065; عرض</button>
-          <button class="btn btn-ghost btn-sm" onclick="AdminCourses.editCourse('${c.id}')">&#9998; تعديل</button>
-          <button class="btn btn-ghost btn-sm" onclick="AdminCourses.deleteCourse('${c.id}')" style="color:var(--danger)">&#128465;</button>
+          <button class="btn btn-ghost btn-sm" onclick="AdminCourses.viewCourse('${c.id}')">${Icons.view} عرض</button>
+          <button class="btn btn-ghost btn-sm" onclick="AdminCourses.editCourse('${c.id}')">${Icons.edit} تعديل</button>
+          <button class="btn btn-ghost btn-sm" onclick="AdminCourses.deleteCourse('${c.id}')" style="color:var(--danger)">${Icons.remove}</button>
         </div>
       </div>
     `;
@@ -74,6 +75,7 @@ const AdminCourses = (() => {
 
   function filterLevel(v) { currentFilters.level = v || undefined; loadCourses(); }
   function filterStatus(v) { currentFilters.status = v || undefined; loadCourses(); }
+  const searchCourses = Utils.debounce((v) => { currentFilters.search = v || undefined; loadCourses(); }, 300);
 
   async function showAddModal() {
     let teachers = [];
@@ -197,5 +199,5 @@ const AdminCourses = (() => {
     catch (err) { Toast.error(err.message); }
   }
 
-  return { render, showAddModal, submitAdd, viewCourse, addSession, editCourse, submitEdit, deleteCourse, filterLevel, filterStatus };
+  return { render, showAddModal, submitAdd, viewCourse, addSession, editCourse, submitEdit, deleteCourse, filterLevel, filterStatus, searchCourses };
 })();

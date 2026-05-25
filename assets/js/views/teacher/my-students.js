@@ -2,7 +2,7 @@ const TeacherStudents = (() => {
   async function render() {
     const page = document.getElementById('page-content');
     page.innerHTML = `
-      <h2 style="font-size:1.1rem" class="mb-20">تلاميذي</h2>
+      <h2 style="font-size:1.1rem" class="mb-20">${Icons.students} تلاميذي</h2>
       <div class="filters-bar">
         <input type="text" class="form-input search-input" placeholder="بحث..." oninput="TeacherStudents.search(this.value)">
       </div>
@@ -18,7 +18,7 @@ const TeacherStudents = (() => {
       const data = await API.get(`/teacher/students${params}`);
       const students = data.students || [];
       if (students.length === 0) {
-        container.innerHTML = '<div class="empty-state"><div class="icon">&#128100;</div><div class="title">لا يوجد تلاميذ</div></div>';
+        container.innerHTML = `<div class="empty-state"><div class="icon">${Icons.students}</div><div class="title">لا يوجد تلاميذ</div></div>`;
         return;
       }
       container.innerHTML = `

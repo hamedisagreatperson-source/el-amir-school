@@ -6,10 +6,10 @@ const TeacherDashboard = (() => {
       page.innerHTML = `
         <div class="teacher-dashboard">
           <div class="grid grid-4 mb-24 stagger">
-            <div class="stat-card"><div class="stat-icon blue">&#128218;</div><div><div class="stat-value">${data.my_courses.length}</div><div class="stat-label">دوراتي</div></div></div>
-            <div class="stat-card"><div class="stat-icon gold">&#128100;</div><div><div class="stat-value">${data.students_count}</div><div class="stat-label">تلاميذي</div></div></div>
-            <div class="stat-card"><div class="stat-icon green">&#9989;</div><div><div class="stat-value">${data.weekly_attendance_rate}%</div><div class="stat-label">حضور الأسبوع</div></div></div>
-            <div class="stat-card"><div class="stat-icon orange">&#128233;</div><div><div class="stat-value">${data.pending_requests_count}</div><div class="stat-label">طلبات معلقة</div></div></div>
+            <div class="stat-card"><div class="stat-icon blue">${Icons.courses}</div><div><div class="stat-value">${data.my_courses.length}</div><div class="stat-label">دوراتي</div></div></div>
+            <div class="stat-card"><div class="stat-icon gold">${Icons.students}</div><div><div class="stat-value">${data.students_count}</div><div class="stat-label">تلاميذي</div></div></div>
+            <div class="stat-card"><div class="stat-icon green">${Icons.attendance}</div><div><div class="stat-value">${data.weekly_attendance_rate}%</div><div class="stat-label">حضور الأسبوع</div></div></div>
+            <div class="stat-card"><div class="stat-icon orange">${Icons.requests}</div><div><div class="stat-value">${data.pending_requests_count}</div><div class="stat-label">طلبات معلقة</div></div></div>
           </div>
 
           <h3 style="margin-bottom:12px">حصص اليوم</h3>

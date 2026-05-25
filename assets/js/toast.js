@@ -15,10 +15,10 @@ const Toast = (() => {
   function show(message, type = 'info', duration = 4000) {
     init();
     const colors = {
-      success: { bg: 'rgba(39,174,96,0.95)', icon: '&#10003;' },
-      error: { bg: 'rgba(231,76,60,0.95)', icon: '&#10007;' },
-      warning: { bg: 'rgba(243,156,18,0.95)', icon: '&#9888;' },
-      info: { bg: 'rgba(45,106,159,0.95)', icon: '&#8505;' }
+      success: { bg: 'rgba(39,174,96,0.95)', icon: Icons.check },
+      error: { bg: 'rgba(231,76,60,0.95)', icon: Icons.cross },
+      warning: { bg: 'rgba(243,156,18,0.95)', icon: Icons.warning },
+      info: { bg: 'rgba(45,106,159,0.95)', icon: Icons.info }
     };
     const style = colors[type] || colors.info;
 

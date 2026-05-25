@@ -10,12 +10,12 @@ const AdminDashboard = (() => {
       page.innerHTML = `
         <div class="admin-dashboard">
           <div class="stats-grid stagger">
-            ${statCard('&#128100;', 'blue', stats.total_students, 'التلاميذ النشطين')}
-            ${statCard('&#128105;&#8205;&#127979;', 'gold', stats.total_teachers, 'الأساتذة')}
-            ${statCard('&#128218;', 'green', `${stats.open_courses}/${stats.total_courses}`, 'الدورات المفتوحة')}
-            ${statCard('&#128176;', 'red', stats.unpaid_this_month, 'لم يدفعوا هذا الشهر')}
-            ${statCard('&#9989;', 'blue', stats.today_attendance_rate + '%', 'نسبة الحضور اليوم')}
-            ${statCard('&#128233;', 'orange', stats.pending_requests, 'طلبات معلقة')}
+            ${statCard(Icons.students, 'blue', stats.total_students, 'التلاميذ النشطين')}
+            ${statCard(Icons.teachers, 'gold', stats.total_teachers, 'الأساتذة')}
+            ${statCard(Icons.courses, 'green', `${stats.open_courses}/${stats.total_courses}`, 'الدورات المفتوحة')}
+            ${statCard(Icons.payments, 'red', stats.unpaid_this_month, 'لم يدفعوا هذا الشهر')}
+            ${statCard(Icons.attendance, 'blue', stats.today_attendance_rate + '%', 'نسبة الحضور اليوم')}
+            ${statCard(Icons.requests, 'orange', stats.pending_requests, 'طلبات معلقة')}
           </div>
           <div class="grid-2 mt-24">
             <div class="card">
@@ -23,12 +23,12 @@ const AdminDashboard = (() => {
                 <span class="card-title">روابط سريعة</span>
               </div>
               <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px">
-                <a href="#/admin/students" class="btn btn-outline" style="justify-content:flex-start">&#128100; إدارة التلاميذ</a>
-                <a href="#/admin/teachers" class="btn btn-outline" style="justify-content:flex-start">&#128105;&#8205;&#127979; إدارة الأساتذة</a>
-                <a href="#/admin/courses" class="btn btn-outline" style="justify-content:flex-start">&#128218; إدارة الدورات</a>
-                <a href="#/admin/payments" class="btn btn-outline" style="justify-content:flex-start">&#128176; متابعة الدفع</a>
-                <a href="#/admin/attendance" class="btn btn-outline" style="justify-content:flex-start">&#9989; تقارير الحضور</a>
-                <a href="#/admin/requests" class="btn btn-outline" style="justify-content:flex-start">&#128233; الطلبات</a>
+                <a href="#/admin/students" class="btn btn-outline" style="justify-content:flex-start">${Icons.students} إدارة التلاميذ</a>
+                <a href="#/admin/teachers" class="btn btn-outline" style="justify-content:flex-start">${Icons.teachers} إدارة الأساتذة</a>
+                <a href="#/admin/courses" class="btn btn-outline" style="justify-content:flex-start">${Icons.courses} إدارة الدورات</a>
+                <a href="#/admin/payments" class="btn btn-outline" style="justify-content:flex-start">${Icons.payments} متابعة الدفع</a>
+                <a href="#/admin/attendance" class="btn btn-outline" style="justify-content:flex-start">${Icons.attendance} تقارير الحضور</a>
+                <a href="#/admin/requests" class="btn btn-outline" style="justify-content:flex-start">${Icons.requests} الطلبات</a>
               </div>
             </div>
             <div class="card">
@@ -58,7 +58,7 @@ const AdminDashboard = (() => {
         </div>
       `;
     } catch (err) {
-      page.innerHTML = `<div class="empty-state"><div class="icon">&#9888;</div><div class="title">خطأ في تحميل البيانات</div><div class="description">${err.message}</div></div>`;
+      page.innerHTML = `<div class="empty-state"><div class="icon">${Icons.warning}</div><div class="title">خطأ في تحميل البيانات</div><div class="description">${err.message}</div></div>`;
     }
   }
 

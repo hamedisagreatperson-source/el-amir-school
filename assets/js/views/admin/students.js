@@ -6,8 +6,8 @@ const AdminStudents = (() => {
     const page = document.getElementById('page-content');
     page.innerHTML = `
       <div class="flex items-center justify-between mb-20">
-        <h2 style="font-size:1.1rem">قائمة التلاميذ</h2>
-        <button class="btn btn-accent" onclick="AdminStudents.showAddModal()">&#43; إضافة تلميذ</button>
+        <h2 style="font-size:1.1rem">${Icons.students} قائمة التلاميذ</h2>
+        <button class="btn btn-accent" onclick="AdminStudents.showAddModal()">${Icons.add} إضافة تلميذ</button>
       </div>
       <div class="filters-bar">
         <input type="text" class="form-input search-input" placeholder="بحث بالاسم أو الهاتف..." oninput="AdminStudents.onSearch(this.value)">
@@ -23,8 +23,8 @@ const AdminStudents = (() => {
           <option value="pending">معلّق</option>
         </select>
         <div style="margin-right:auto;display:flex;gap:8px">
-          <button class="btn btn-outline btn-sm" onclick="AdminStudents.exportExcel()">&#128196; Excel</button>
-          <button class="btn btn-outline btn-sm" onclick="AdminStudents.exportPDF()">&#128196; PDF</button>
+          <button class="btn btn-outline btn-sm" onclick="AdminStudents.exportExcel()">${Icons.excel} Excel</button>
+          <button class="btn btn-outline btn-sm" onclick="AdminStudents.exportPDF()">${Icons.pdf} PDF</button>
         </div>
       </div>
       <div id="students-table-container">
@@ -42,7 +42,7 @@ const AdminStudents = (() => {
       const students = data.students || [];
 
       if (students.length === 0) {
-        container.innerHTML = '<div class="empty-state"><div class="icon">&#128100;</div><div class="title">لا يوجد تلاميذ</div></div>';
+        container.innerHTML = `<div class="empty-state"><div class="icon">${Icons.students}</div><div class="title">لا يوجد تلاميذ</div></div>`;
         return;
       }
 
@@ -71,9 +71,9 @@ const AdminStudents = (() => {
                   <td>${Utils.getStatusBadge(s.status)}</td>
                   <td>
                     <div style="display:flex;gap:4px">
-                      <button class="btn btn-ghost btn-sm" onclick="AdminStudents.viewStudent('${s.id}')" title="عرض">&#128065;</button>
-                      <button class="btn btn-ghost btn-sm" onclick="AdminStudents.editStudent('${s.id}')" title="تعديل">&#9998;</button>
-                      <button class="btn btn-ghost btn-sm" onclick="AdminStudents.deleteStudent('${s.id}')" title="حذف" style="color:var(--danger)">&#128465;</button>
+                      <button class="btn btn-ghost btn-sm" onclick="AdminStudents.viewStudent('${s.id}')" title="عرض">${Icons.view}</button>
+                      <button class="btn btn-ghost btn-sm" onclick="AdminStudents.editStudent('${s.id}')" title="تعديل">${Icons.edit}</button>
+                      <button class="btn btn-ghost btn-sm" onclick="AdminStudents.deleteStudent('${s.id}')" title="حذف" style="color:var(--danger)">${Icons.remove}</button>
                     </div>
                   </td>
                 </tr>
